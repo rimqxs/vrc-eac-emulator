@@ -1,0 +1,20 @@
+LIBRARY
+EXPORTS
+
+GetFileVersionInfoA=DummyGetFileVersionInfoA @1
+GetFileVersionInfoByHandle=DummyGetFileVersionInfoByHandle @2
+GetFileVersionInfoExA=DummyGetFileVersionInfoExA @3
+GetFileVersionInfoExW=DummyGetFileVersionInfoExW @4
+GetFileVersionInfoSizeA=DummyGetFileVersionInfoSizeA @5
+GetFileVersionInfoSizeExA=DummyGetFileVersionInfoSizeExA @6
+GetFileVersionInfoSizeExW=DummyGetFileVersionInfoSizeExW @7
+GetFileVersionInfoSizeW=DummyGetFileVersionInfoSizeW @8
+GetFileVersionInfoW=DummyGetFileVersionInfoW @9
+VerFindFileA=DummyVerFindFileA @10
+VerFindFileW=DummyVerFindFileW @11
+VerInstallFileA=DummyVerInstallFileA @12
+VerInstallFileW=DummyVerInstallFileW @13
+VerLanguageNameA=DummyVerLanguageNameA @14
+VerLanguageNameW=DummyVerLanguageNameW @15
+VerQueryValueA=DummyVerQueryValueA @16
+VerQueryValueW=DummyVerQueryValueW @17
