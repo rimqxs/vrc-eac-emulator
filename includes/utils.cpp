@@ -1,8 +1,8 @@
-#include "Utils.h"
+#include "utils.h"
 
 #include <cstdio>
 
-void Utils::createConsole() {
+void utils::createConsole() {
 	AllocConsole();
 
 	FILE* newStdout;

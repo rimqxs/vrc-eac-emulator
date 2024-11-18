@@ -1,3 +1,5 @@
+#define WIN32_LEAN_AND_MEAN
+
 #include <Windows.h>
 #include <shlwapi.h>
 
@@ -7,12 +9,11 @@
 #include <plog/Formatters/TxtFormatter.h>
 
 #include "server.h"
-#include "Utils.h"
+#include "utils.h"
 #include "forwarding/forwarder.h"
 
-server server;
 void init() {
-    Utils::createConsole();
+    utils::createConsole();
     static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
     plog::init(plog::debug, &consoleAppender);
     PLOGD.printf("Console initialized");
@@ -23,8 +24,7 @@ void init() {
     }
     PLOGD.printf("EOSSDK-Win64-Shipping.dll Loaded");
 
-    server.run();
-    PLOGI.printf("EOS Emulator started correctly");
+    server::run();
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {

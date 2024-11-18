@@ -5,10 +5,10 @@
 #include <plog/Appenders/ConsoleAppender.h>
 #include <plog/Formatters/TxtFormatter.h>
 
-#include "../includes/Utils.h"
+#include "../includes/utils.h"
 
 void init() {
-	Utils::createConsole();
+	utils::createConsole();
 	static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
 	plog::init(plog::debug, &consoleAppender);
 

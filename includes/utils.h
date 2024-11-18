@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-class Utils {
+class utils {
 public:
 	static void createConsole();
 };
