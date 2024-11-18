@@ -1,5 +1,4 @@
 #define WIN32_LEAN_AND_MEAN
-
 #include <Windows.h>
 #include <shlwapi.h>
 
@@ -28,18 +27,14 @@ void init() {
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-    switch (fdwReason) {
-        case DLL_PROCESS_ATTACH:
-            forwarder::setup();
-            if (GetModuleHandleA("vrchat.exe") != nullptr) {
-                init();
+    forwarder::setup();
+    if (fdwReason == DLL_PROCESS_ATTACH && GetModuleHandleA("vrchat.exe") != nullptr) {
+        init();
 
-                PLOGW.printf("To close this process, just press enter key to exit!");
-                getchar();
-                exit(-1);
-            }
-        break;
-        default:break;
+        PLOGW.printf("To close this process, just press enter key to exit!");
+        getchar();
+        exit(-1);
     }
+
     return TRUE;
 }
