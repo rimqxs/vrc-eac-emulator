@@ -2,7 +2,7 @@
 
 #include <plog/Log.h>
 
-#define PORT "80"
+#define PORT "1337"
 
 DWORD server::recvLoop(LPVOID) {
     SOCKET client;
