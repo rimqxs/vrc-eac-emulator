@@ -4,6 +4,6 @@ project(EOSSDK-Win64-Shipping)
 add_library(EOSSDK-Win64-Shipping SHARED
         ${includes_deps}
         dllmain.cpp
-        ../includes/socks.cpp
-        ../includes/socks.h
+        exports.def
+        eos.cpp
 )

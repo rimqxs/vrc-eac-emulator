@@ -11,20 +11,13 @@ void init() {
 	utils::createConsole();
 	static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
 	plog::init(plog::debug, &consoleAppender);
-
-	PLOGD.printf("EOS Emulator initialized correctly");
-}
-
-DWORD startServer(LPVOID param) {
-	return 0;
+	PLOGD.printf("Console Initialized");
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH:
-			init();
-			CreateThread(nullptr, 0, startServer, nullptr, 0, nullptr);
-		break;
+	if (fdwReason == DLL_PROCESS_ATTACH && GetModuleHandleA("vrchat.exe") != nullptr) {
+		init();
 	}
+
 	return TRUE;
 }
