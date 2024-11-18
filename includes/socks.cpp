@@ -61,7 +61,6 @@ int socks::listen(SOCKET socket, addrinfo* addrInfo) {
         WSACleanup();
         return -1;
     }
-
     freeaddrinfo(addrInfo);
 
     result = ::listen(socket, SOMAXCONN);
