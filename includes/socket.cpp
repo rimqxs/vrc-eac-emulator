@@ -8,6 +8,10 @@ int socket::init() {
     return WSAStartup(MAKEWORD(2, 2), &wsaData);
 }
 
+void socket::send(SOCKET socket, const void* buf, const int len) {
+    ::send(socket, static_cast<const char*>(buf), len, 0);
+}
+
 void socket::close(SOCKET socket) {
     closesocket(socket);
 }
@@ -76,7 +80,7 @@ int socket::accept(SOCKET socket, SOCKET* clientSocketOutput) {
 
 /////////////// Client ///////////////
 
-int socket::connect(const char* ipAddress, unsigned short port) {
+int socket::connect(const char* ipAddress, unsigned short port, SOCKET* socketOutput) {
     // Create a SOCKET for connecting to server
     SOCKET connectSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (connectSocket == INVALID_SOCKET) {
@@ -98,6 +102,8 @@ int socket::connect(const char* ipAddress, unsigned short port) {
         closesocket(connectSocket);
         return -1;
     }
+
+    *socketOutput = connectSocket;
 
     return 0;
 }
