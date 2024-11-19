@@ -1,8 +1,13 @@
 #include "utils.h"
 
+#include <Windows.h>
 #include <cstdio>
+#include <plog/Log.h>
+#include <plog/Init.h>
+#include <plog/Appenders/ColorConsoleAppender.h>
+#include <plog/Formatters/TxtFormatter.h>
 
-void utils::createConsole() {
+void utils::initLogger() {
 	AllocConsole();
 
 	FILE* newStdout;
@@ -11,4 +16,7 @@ void utils::createConsole() {
 	freopen_s(&newStdin, "CONIN$", "r", stdin);
 
 	SetConsoleTitleA("EAC Emulator");
+
+	static plog::ColorConsoleAppender<plog::TxtFormatter> consoleAppender;
+	plog::init(plog::debug, &consoleAppender);
 }
