@@ -1,21 +1,21 @@
 #include <Windows.h>
-
 #include <plog/Log.h>
-#include <plog/Init.h>
-#include <plog/Appenders/ConsoleAppender.h>
-#include <plog/Formatters/TxtFormatter.h>
 
-#include "../includes/utils.h"
+#include "client.h"
+#include "utils.h"
+#include "constants.h"
 
 void init() {
-	utils::createConsole();
-	static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
-	plog::init(plog::debug, &consoleAppender);
-	PLOGD.printf("Console Initialized");
+	utils::initLogger();
+	PLOGI.printf("Console Initialized");
+
+	PLOGD.printf("Packets container initialized");
+
+	client::connect();
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	if (fdwReason == DLL_PROCESS_ATTACH && GetModuleHandleA("vrchat.exe") != nullptr) {
+	if (fdwReason == DLL_PROCESS_ATTACH && GetModuleHandleA(GAME_HANDLE_NAME) != nullptr) {
 		init();
 	}
 

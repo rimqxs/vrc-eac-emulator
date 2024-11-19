@@ -1,11 +1,9 @@
 #pragma once
 
-#include "socks.h"
+#include "socket.h"
 
 class server {
     static inline SOCKET socket;
-
-    static DWORD recvLoop(LPVOID);
 public:
     static void run();
 };

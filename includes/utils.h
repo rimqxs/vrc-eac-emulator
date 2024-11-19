@@ -2,5 +2,5 @@
 
 class utils {
 public:
-	static void createConsole();
+	static void initLogger();
 };

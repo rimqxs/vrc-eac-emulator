@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include <shlwapi.h>
 
-#include <plog/Init.h>
 #include <plog/Log.h>
 #include <plog/Appenders/ConsoleAppender.h>
 #include <plog/Formatters/TxtFormatter.h>
@@ -12,12 +11,10 @@
 #include "forwarding/forwarder.h"
 
 void init() {
-    utils::createConsole();
-    static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
-    plog::init(plog::debug, &consoleAppender);
-    PLOGD.printf("Console initialized");
+    utils::initLogger();
+    PLOGI.printf("Console initialized");
 
-    if (LoadLibraryA(".\\VRChat_Data\\Plugins\\x86_64\\EOSSDK-Win64-Shipping.dll") == nullptr) {
+    if (LoadLibraryA(R"(.\VRChat_Data\Plugins\x86_64\EOSSDK-Win64-Shipping.dll)") == nullptr) {
         PLOGF.printf("Failed to perform LoadLibraryA EOSSDK-Win64-Shipping.dll!");
         return;
     }
