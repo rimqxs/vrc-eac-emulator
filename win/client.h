@@ -3,6 +3,9 @@
 #include "protocol/packet.h"
 
 class client {
+    static void receive_handler();
+
+    static void send_handler();
 public:
     static void connect();
 
