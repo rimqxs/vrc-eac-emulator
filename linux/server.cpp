@@ -1,11 +1,9 @@
 #include "server.h"
 
-#include <thread>
 #include <plog/Log.h>
 
-#include "Constants.h"
-
 #include "socket.h"
+#include "constants.h"
 #include "protocol/packet_codec.h"
 
 SOCKET socket_;

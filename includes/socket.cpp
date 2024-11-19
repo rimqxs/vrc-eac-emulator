@@ -1,15 +1,15 @@
 #include "socket.h"
 
-#include <winsock2.h>
 #include <ws2tcpip.h>
 #include <plog/Log.h>
 
+static inline WSADATA wsaData;
 int socket::init() {
     return WSAStartup(MAKEWORD(2, 2), &wsaData);
 }
 
-void socket::send(SOCKET socket, const void* buf, const int len) {
-    ::send(socket, static_cast<const char*>(buf), len, 0);
+int socket::send(SOCKET socket, const void* buf, const int len) {
+    return ::send(socket, static_cast<const char*>(buf), len, 0);
 }
 
 void socket::close(SOCKET socket) {

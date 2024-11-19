@@ -1,4 +1,5 @@
 #include <Windows.h>
+
 #include <plog/Log.h>
 
 #include "client.h"
@@ -8,8 +9,6 @@
 void init() {
 	utils::initLogger();
 	PLOGI.printf("Console Initialized");
-
-	PLOGD.printf("Packets container initialized");
 
 	client::connect();
 }

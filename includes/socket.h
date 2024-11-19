@@ -1,16 +1,16 @@
 #pragma once
 
 #include <winsock2.h>
+
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 512
 
 class socket {
-    static inline WSADATA wsaData;
 public:
     static int init();
 
-    static void send(SOCKET socket, const void* buf, int len);
+    static int send(SOCKET socket, const void* buf, int len);
 
     static void close(SOCKET socket);
 

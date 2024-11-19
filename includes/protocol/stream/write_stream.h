@@ -1,6 +1,9 @@
 #pragma once
 #include "buffer.h"
 
+#include <vector>
+#include <plog/Log.h>
+
 class write_stream {
 public:
     std::vector<char> buffer;
