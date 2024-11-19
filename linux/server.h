@@ -1,9 +1,9 @@
 #pragma once
-
-#include "socket.h"
+#include "protocol/packet.h"
 
 class server {
-    static inline SOCKET socket;
 public:
     static void run();
+
+    static void send_packet(const std::shared_ptr<packet>& packet);
 };

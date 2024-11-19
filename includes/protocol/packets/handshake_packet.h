@@ -3,6 +3,7 @@
 #include "protocol/packet.h"
 
 class handshake_packet : public packet {
+    time_t timestamp = 0;
 public:
     void encode(write_stream& stream) override;
 

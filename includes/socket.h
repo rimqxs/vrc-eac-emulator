@@ -10,6 +10,8 @@ class socket {
 public:
     static int init();
 
+    static void send(SOCKET socket, const void* buf, int len);
+
     static void close(SOCKET socket);
 
     // Server
@@ -18,5 +20,5 @@ public:
     static int accept(SOCKET socket, SOCKET* clientSocketOutput);
 
     // Client
-    static int connect(const char* ipAddress, unsigned short port);
+    static int connect(const char* ipAddress, unsigned short port, SOCKET* socketOutput);
 };
