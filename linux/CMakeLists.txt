@@ -4,7 +4,7 @@ project(version)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "")
 set_property(SOURCE forwarding/jmps.asm APPEND PROPERTY COMPILE_OPTIONS "-x" "assembler-with-cpp")
 
-add_library(version SHARED
+add_executable(version
         ${includes_deps}
         dllmain.cpp
 
@@ -14,4 +14,6 @@ add_library(version SHARED
         forwarding/forwarder.h
         server.cpp
         server.h
+        server_packet_handler.cpp
+        server_packet_handler.h
 )

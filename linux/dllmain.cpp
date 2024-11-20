@@ -28,10 +28,6 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
     forwarder::setup();
     if (fdwReason == DLL_PROCESS_ATTACH && GetModuleHandleA(GAME_HANDLE_NAME) != nullptr) {
         init();
-
-        PLOGW.printf("To close this process, just press enter key to exit!");
-        getchar();
-        exit(-1);
     }
 
     return TRUE;

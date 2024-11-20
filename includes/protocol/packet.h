@@ -12,5 +12,7 @@ public:
 
     virtual void decode(read_stream& stream) = 0;
 
+    virtual std::string get_name() = 0;
+
     virtual unsigned char get_id() = 0;
 };
