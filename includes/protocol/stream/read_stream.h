@@ -19,6 +19,10 @@ public:
         this->position = 0;
     };
 
+    [[nodiscard]] size_t bytes_remaining() const {
+        return this->size - this->position;
+    }
+
     char* read(int rsize) {
         int new_position = rsize + this->position;
         if (new_position >= this->size) { // avoid reading invalid memory

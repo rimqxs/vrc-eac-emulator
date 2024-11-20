@@ -2,6 +2,9 @@
 #include "protocol/packet.h"
 
 class server {
+    static void receive_handler();
+
+    static void send_handler();
 public:
     static void run();
 

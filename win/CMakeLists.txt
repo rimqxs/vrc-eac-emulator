@@ -12,4 +12,6 @@ add_library(EOSSDK-Win64-Shipping SHARED
         eos/eos_general.cpp
         eos/eos_notification.cpp
         eos/eos_platform.cpp
+        client_packet_handler.cpp
+        client_packet_handler.h
 )
