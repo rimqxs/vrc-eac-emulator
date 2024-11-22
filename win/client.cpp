@@ -39,6 +39,7 @@ void client::receive_handler() {
 
             client_packet_handler::handle(packet);
         }
+		stream.close();
     }
 }
 
