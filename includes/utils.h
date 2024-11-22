@@ -2,5 +2,7 @@
 
 class utils {
 public:
-	static void initLogger();
+	static void init_logger();
+
+	static void* scan_pattern(const char* pattern);
 };
