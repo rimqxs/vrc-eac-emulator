@@ -7,5 +7,5 @@
 //  il2cpp: Available if the target game is made in Il2Cpp
 #define HOOK_MODE il2cpp
 
-#define HOST_IP_ADDR "192.168.146.131"
+#define HOST_IP_ADDR "127.0.0.1"
 #define HOST_PORT 7777

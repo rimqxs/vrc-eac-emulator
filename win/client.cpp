@@ -49,8 +49,7 @@ void client::send_handler() {
     while (running) {
         mutex.lock();
         for (auto& packet : queued_packet) {
-            write_stream stream;
-            packet->encode(stream);
+            write_stream stream = packet_codec::encode(packet);
 
             auto buf = stream.as_buffer();
             if (socket::send(socket_, buf.data, static_cast<int>(buf.size)) == SOCKET_ERROR) {
