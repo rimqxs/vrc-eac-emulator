@@ -11,7 +11,7 @@ write_stream packet_codec::encode(const std::shared_ptr<packet>& packet) {
 }
 
 std::shared_ptr<packet> packet_codec::decode(read_stream &stream) {
-    int packet_id = stream.read_as<unsigned char>();
+    auto packet_id = stream.read_as<unsigned char>();
     auto packet = packet_factory::create_packet(packet_id);
     if (packet == nullptr) {
         PLOGE.printf("An invalid packet detected: %d", packet_id);

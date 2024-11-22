@@ -28,15 +28,16 @@ void server::receive_handler() {
             continue;
         }
 
+        PLOGD.printf("received %d bytes", received_len);
         read_stream stream(buf, received_len);
         while (stream.bytes_remaining() > 0) {
             auto packet = packet_codec::decode(stream);
             if (packet == nullptr) {
                 PLOGF.printf("packet decoding failed");
-                return;
+                break;
             }
 
-            client_packet_handler::handle(packet);
+            server_packet_handler::handle(packet);
         }
 		stream.close();
     }
@@ -49,8 +50,7 @@ void server::send_handler() {
     while (running) {
         mutex.lock();
         for (auto& packet : queued_packet) {
-            write_stream stream;
-            packet->encode(stream);
+        	write_stream stream = packet_codec::encode(packet);
 
             auto buf = stream.as_buffer();
             if (socket::send(clientSocket, buf.data, static_cast<int>(buf.size)) == SOCKET_ERROR) {

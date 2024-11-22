@@ -24,14 +24,13 @@ public:
     }
 
     char* read(int rsize) {
-        int new_position = rsize + this->position;
-        if (new_position >= this->size) { // avoid reading invalid memory
-            PLOGF.printf("read position is oversized");
-            return nullptr;
-        }
-
         char* ret = static_cast<char*>(data) + position;
-        position += new_position;
+        position += rsize;
+    	if (bytes_remaining() < 0) { // avoid reading invalid memory
+    		PLOGF.printf("read position is oversized");
+    		return nullptr;
+    	}
+
         return ret;
     }
 

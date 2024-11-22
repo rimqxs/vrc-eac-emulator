@@ -5,7 +5,7 @@
 
 void client_packet_handler::handle(std::shared_ptr<packet> packet) {
     if (packet->get_id() == HANDSHAKE_PACKET_ID) {
-        PLOGD.printf("Session successfully created: timestamp=%ll",
+        PLOGD.printf("Session successfully created: timestamp=%lld",
                      std::static_pointer_cast<handshake_packet>(packet)->timestamp);
     }
 }
