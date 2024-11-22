@@ -7,7 +7,7 @@
 #include "constants.h"
 
 void init() {
-	utils::initLogger();
+	utils::init_logger();
 	PLOGI.printf("Console Initialized");
 
 	client::connect();

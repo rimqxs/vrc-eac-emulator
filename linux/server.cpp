@@ -8,7 +8,7 @@
 #include "protocol/packet_codec.h"
 #include "server_packet_handler.h"
 
-SOCKET socket_;
+SOCKET clientSocket;
 std::mutex mutex;
 std::vector<std::shared_ptr<packet>> queued_packet;
 
@@ -21,7 +21,7 @@ void server::receive_handler() {
     char buf[DEFAULT_BUFLEN];
     int buf_len = DEFAULT_BUFLEN;
     while (running) {
-        int received_len = recv(socket_, buf, buf_len, 0);
+        int received_len = recv(clientSocket, buf, buf_len, 0);
         if (received_len <= 0) {
             PLOGW.printf("Connection closed");
             running = false;
@@ -38,6 +38,7 @@ void server::receive_handler() {
 
             client_packet_handler::handle(packet);
         }
+		stream.close();
     }
 }
 
@@ -52,7 +53,7 @@ void server::send_handler() {
             packet->encode(stream);
 
             auto buf = stream.as_buffer();
-            if (socket::send(socket_, buf.data, static_cast<int>(buf.size)) == SOCKET_ERROR) {
+            if (socket::send(clientSocket, buf.data, static_cast<int>(buf.size)) == SOCKET_ERROR) {
                 PLOGD.printf("Send failed");
                 running = false;
             }
@@ -71,6 +72,7 @@ void server::run() {
         return;
     }
 
+	SOCKET socket_;
     addrinfo* info;
     if (socket::listen(HOST_PORT, &socket_, &info) != NULL) {
         PLOGE.printf("Server setup failed");
@@ -78,8 +80,7 @@ void server::run() {
     }
 
     PLOGI.printf("Server started on localhost:%d! Waiting for connection...", HOST_PORT);
-    SOCKET client;
-    if (socket::accept(socket_, &client) != NULL) {
+    if (socket::accept(socket_, &clientSocket) != NULL) {
         PLOGE.printf("Accepting client connection failed");
         return;
     }
