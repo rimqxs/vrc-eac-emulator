@@ -1,8 +1,6 @@
 #pragma once
 #include <plog/Log.h>
 
-#include <expected>
-
 #include "nullable_string.h"
 
 class read_stream {

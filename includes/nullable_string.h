@@ -13,6 +13,11 @@ public:
 	}
 
 	explicit nullable_string(const char* str) {
+		if (str == nullptr) {
+			is_null = true;
+			return;
+		}
+
 		this->str = std::string(str);
 	}
 

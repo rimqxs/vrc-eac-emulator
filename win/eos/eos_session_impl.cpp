@@ -3,7 +3,7 @@
 
 #include "../client.h"
 #include "protocol/packet_factory.h"
-#include "protocol/packets/request_login_packet.h"
+#include "protocol/packets/c2s/request_login_packet.h"
 
 EOS_DECLARE_FUNC(void) DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Connect_LoginOptions* options, void* client_data, const EOS_Connect_OnLoginCallback completion_delegate) {
 	auto packet = std::make_shared<request_login_packet>();

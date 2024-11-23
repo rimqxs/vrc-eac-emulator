@@ -40,7 +40,7 @@ void init() {
 		PLOGF.printf("Failed to create hook of UnityMain");
 		return;
 	}
-	PLOGD.printf("Created WinMain function hook");
+	PLOGI.printf("Created WinMain function hook");
 	PLOGI.printf("Waiting for the main process...");
 #endif
 }
