@@ -48,3 +48,7 @@ CMakeUserPresets.json
 # CLion project files
 .idea
 cmake-build-*
+
+# Vs
+out
+.vs

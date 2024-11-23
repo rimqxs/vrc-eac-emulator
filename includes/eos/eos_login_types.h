@@ -1,6 +1,8 @@
 #pragma once
 #include "eos_api.h"
 
+#pragma pack(push, 8)
+
 EOS_EXTERN_C struct EOS_Connect_LoginCallbackInfo {
 	EOS_EResult ResultCode;
 	void* ClientData;

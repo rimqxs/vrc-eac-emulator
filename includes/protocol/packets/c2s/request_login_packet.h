@@ -6,14 +6,12 @@
 class request_login_packet : public packet {
 public:
 	int32_t api_version;
-
 	bool has_credentials;
 	struct {
 		int32_t ApiVersion;
 		nullable_string Token;
 		int Type;
 	} credentials;
-
 	bool has_login_info;
 	struct {
 		int32_t ApiVersion;

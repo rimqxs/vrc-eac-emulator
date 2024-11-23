@@ -25,7 +25,6 @@ public:
 	void write_string(const nullable_string& string) {
     	if (string == nullptr) {
     		write_as<char>(0); // is valid
-    		write_as<unsigned short>(0);
     		return;
     	}
 
@@ -33,7 +32,6 @@ public:
     	short len = strlen(string.c_str());
     	write_as<unsigned short>(len);
     	if (len == 0) {
-    		write_as<unsigned short>(0);
     		return;
     	}
 
