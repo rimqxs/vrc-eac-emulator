@@ -35,3 +35,5 @@ struct EOS_Platform_Options {
 	const void* SystemSpecificOptions;
 	double* TaskNetworkTimeoutSeconds;
 };
+
+#pragma pack(pop)

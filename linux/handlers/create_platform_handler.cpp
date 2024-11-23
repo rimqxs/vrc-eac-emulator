@@ -44,5 +44,4 @@ void create_platform_handler::handle(std::shared_ptr<packet> packet) {
 	}
 
 	eos_platform::create_platform(options);
-	PLOGI.printf("Platform Created: product_id=%s, client_id=%s", create_platform->product_id.c_str(), create_platform->client_credentials.client_id.c_str());
 }
