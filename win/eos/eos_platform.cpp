@@ -1,4 +1,4 @@
-#include "eos_api.h"
+#include <eos/eos_api.h>
 
 EOS_DECLARE_FUNC(EOS_HPlatform) DummyEOS_Platform_Create(void* options) {
     PLOG_INFO.printf("EOS_Platform_Create called");

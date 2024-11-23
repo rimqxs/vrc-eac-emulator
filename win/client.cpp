@@ -15,9 +15,7 @@ std::vector<std::shared_ptr<packet>> queued_packet;
 
 #define DEFAULT_BUFLEN 512
 
-void client::receive_handler() {
-    PLOGD.printf("Recv loop started");
-
+void client::receive_loopback() {
     bool running = true;
     char buf[DEFAULT_BUFLEN];
     int buf_len = DEFAULT_BUFLEN;
@@ -43,8 +41,7 @@ void client::receive_handler() {
     }
 }
 
-void client::send_handler() {
-    PLOGD.printf("Send loop started");
+void client::send_loopback() {
     bool running = true;
     while (running) {
         mutex.lock();
@@ -78,8 +75,8 @@ void client::connect() {
     }
     PLOGI.printf("Connected to the server!");
 
-    std::thread(send_handler).detach();
-    std::thread(receive_handler).detach();
+    std::thread(send_loopback).detach();
+    std::thread(receive_loopback).detach();
 
     // Send handshake packet
     auto packet = std::make_shared<handshake_packet>();

@@ -1,4 +1,4 @@
-#include "eos_api.h"
+#include <eos/eos_api.h>
 
 EOS_DECLARE_FUNC(void) dummy_func() {
     PLOGF.printf("This should never happened");

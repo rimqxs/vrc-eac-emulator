@@ -1,4 +1,4 @@
-#include "eos_api.h"
+#include <eos/eos_api.h>
 
 EOS_DECLARE_FUNC(EOS_NotificationId) EOS_Connect_AddNotifyLoginStatusChanged(EOS_HConnect handle, void* options, void* clientData, void* notificationFn) {
     // TODO: impl handler
