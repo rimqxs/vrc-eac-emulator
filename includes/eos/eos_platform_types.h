@@ -1,7 +1,7 @@
 #pragma once
+#include <cstdint>
 
 #pragma pack(push, 8)
-#include <cstdint>
 
 #define EOS_HIntegratedPlatformOptionsContainer void*
 

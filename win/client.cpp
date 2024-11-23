@@ -5,7 +5,7 @@
 
 #include "socket.h"
 #include "constants.h"
-#include "client_packet_handler.h"
+#include "client_packet_processor.h"
 #include "protocol/packet_codec.h"
 #include "protocol/packets/handshake_packet.h"
 
@@ -35,7 +35,7 @@ void client::receive_loopback() {
                 return;
             }
 
-            client_packet_handler::handle(packet);
+            client_packet_processor::handle(packet);
         }
 		stream.close();
     }

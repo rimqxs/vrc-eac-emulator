@@ -7,8 +7,6 @@ add_library(version SHARED
 
         server.cpp
         server.h
-        server_packet_handler.cpp
-        server_packet_handler.h
 
         eos/eos_platform.h
         eos/eos_platform.cpp
@@ -16,10 +14,15 @@ add_library(version SHARED
         eos/eos.cpp
         eos/eos.h
 
-        handlers/create_platform_handler.cpp
-        handlers/create_platform_handler.h
-        handlers/request_login_handler.cpp
-        handlers/request_login_handler.h
+        handlers/handler_registry.h
+        handlers/platform/create_platform_handler.cpp
+        handlers/platform/create_platform_handler.h
+        handlers/platform/request_login_handler.cpp
+        handlers/platform/request_login_handler.h
+        handlers/common/initialize_eos_handler.cpp
+        handlers/common/initialize_eos_handler.h
+        handlers/common/handshake_packet_handler.cpp
+        handlers/common/handshake_packet_handler.h
 
         forwarding/exports.def
         forwarding/exports.cpp

@@ -1,6 +1,6 @@
 #include "create_platform_handler.h"
 
-#include "../eos/eos_platform.h"
+#include "../../eos/eos_platform.h"
 #include "eos/eos_platform_types.h"
 #include "protocol/packets/c2s/create_platform_packet.h"
 
