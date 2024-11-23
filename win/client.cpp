@@ -59,6 +59,8 @@ void client::send_loopback() {
         }
         queued_packet.clear();
         mutex.unlock();
+
+    	Sleep(100);
     }
 }
 
