@@ -12,14 +12,14 @@ struct EOS_Connect_LoginCallbackInfo {
 
 struct EOS_Connect_Credentials {
 	int32_t ApiVersion;
-	char* Token;
+	const char* Token;
 	int Type;
 };
 
 struct EOS_Connect_UserLoginInfo {
 	int32_t ApiVersion;
-	char* DisplayName;
-	char* NsaIdToken;
+	const char* DisplayName;
+	const char* NsaIdToken;
 };
 
 struct EOS_Connect_LoginOptions {
@@ -28,6 +28,6 @@ struct EOS_Connect_LoginOptions {
 	EOS_Connect_UserLoginInfo* UserLoginInfo;
 };
 
-EOS_DECALRE_CALLBACK(EOS_Connect_OnLoginCallback, const EOS_Connect_LoginCallbackInfo*);
+EOS_DECLARE_CALLBACK(EOS_Connect_OnLoginCallback, const EOS_Connect_LoginCallbackInfo*);
 
 #pragma pack(pop)
