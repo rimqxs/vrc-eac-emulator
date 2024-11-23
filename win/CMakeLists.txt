@@ -11,10 +11,8 @@ add_library(EOSSDK-Win64-Shipping SHARED
         eos/eos_general_impl.cpp
         eos/eos_notification_impl.cpp
         eos/eos_platform_impl.cpp
-        client_packet_handler.cpp
-        client_packet_handler.h
+        client_packet_processor.cpp
+        client_packet_processor.h
         eos/eos_session_impl.cpp
-        ../includes/protocol/packets/c2s/create_platform_packet.cpp
-        ../includes/protocol/packets/c2s/create_platform_packet.h
-        ../includes/eos/eos_platform_types.h
+        ../includes/eos/eos_general_types.h
 )
