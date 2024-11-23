@@ -2,9 +2,9 @@
 #include "protocol/packet.h"
 
 class server {
-    static void receive_handler();
+    static void receive_loopback();
 
-    static void send_handler();
+    static void send_loopback();
 public:
     static void run();
 

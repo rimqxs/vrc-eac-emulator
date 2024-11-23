@@ -14,27 +14,24 @@ std::vector<std::shared_ptr<packet>> queued_packet;
 
 #define DEFAULT_BUFLEN 512
 
-void server::receive_handler() {
-    PLOGD.printf("Recv loop started");
-
+void server::receive_loopback() {
     bool running = true;
     char buf[DEFAULT_BUFLEN];
     int buf_len = DEFAULT_BUFLEN;
     while (running) {
-        int received_len = recv(clientSocket, buf, buf_len, 0);
-        if (received_len <= 0) {
+	    int received_len = recv(clientSocket, buf, buf_len, 0);
+	    if (received_len <= 0) {
             PLOGW.printf("Connection closed");
             running = false;
             continue;
         }
 
-        PLOGD.printf("received %d bytes", received_len);
         read_stream stream(buf, received_len);
         while (stream.bytes_remaining() > 0) {
             auto packet = packet_codec::decode(stream);
             if (packet == nullptr) {
                 PLOGF.printf("packet decoding failed");
-                break;
+            	return;
             }
 
             server_packet_handler::handle(packet);
@@ -43,9 +40,7 @@ void server::receive_handler() {
     }
 }
 
-void server::send_handler() {
-    PLOGD.printf("Send loop started");
-
+void server::send_loopback() {
     bool running = true;
     while (running) {
         mutex.lock();
@@ -85,8 +80,8 @@ void server::run() {
         return;
     }
 
-    std::thread(send_handler).detach();
-    std::thread(receive_handler).detach();
+    std::thread(send_loopback).detach();
+    std::thread(receive_loopback).detach();
 
     PLOGD.printf("A connection established");
 }
