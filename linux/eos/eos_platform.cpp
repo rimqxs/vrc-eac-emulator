@@ -22,6 +22,18 @@ void eos_platform::create_platform(EOS_Platform_Options const& options) {
 	PLOGI.printf("Platform Created: product_id=%s, client_id=%s", options.ProductId, options.ClientCredentials.ClientId);
 }
 
+void eos_platform::tick() {
+	typedef void (EOS_CALL*EOS_Platform_Tick)(EOS_HPlatform);
+	static auto eos_platform_tick = reinterpret_cast<EOS_Platform_Tick>(
+		eos_utils::get_eos_proc_addr("EOS_Platform_Tick"));
+	if (!eos_platform_tick) {
+		PLOGF.printf("Could not resolve EOS_Platform_Tick");
+		return;
+	}
+
+	eos_platform_tick(hPlatform);
+}
+
 EOS_HConnect eos_platform::get_connect_interface() {
 	typedef EOS_HConnect (EOS_CALL*EOS_Platform_GetConnectInterface)(EOS_HPlatform);
 	static auto eos_platform_get_connect_interface = reinterpret_cast<EOS_Platform_GetConnectInterface>(
@@ -50,4 +62,8 @@ void eos_platform::connect_login(EOS_HConnect hConnect, EOS_Connect_LoginOptions
 	}
 
 	eos_connect_login(hConnect, &options, nullptr, callback);
+}
+
+bool eos_platform::is_platform_created() {
+	return hPlatform != NULL;
 }

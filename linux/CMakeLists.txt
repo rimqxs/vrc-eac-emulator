@@ -8,6 +8,7 @@ add_library(version SHARED
         server.cpp
         server.h
 
+        eos/eos_logger.h
         eos/eos_platform.h
         eos/eos_platform.cpp
         eos/eos_utils.h
