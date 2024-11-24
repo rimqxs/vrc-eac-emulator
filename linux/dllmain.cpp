@@ -9,13 +9,25 @@
 #include "constants.h"
 #include "server.h"
 #include "utils.h"
+#include "eos/eos.h"
+#include "eos/eos_platform.h"
 #include "forwarding/forwarder.h"
 
 int __stdcall Dummy_WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	server::run();
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
-	getchar();
+	while (!GetAsyncKeyState(VK_RETURN)) {
+		Sleep(1000 / 30); // emulate 30 fps
+
+		server::tick();
+
+		if (!eos::is_eos_initialized() || !eos_platform::is_platform_created()) {
+			continue;
+		}
+		eos_platform::tick();
+	}
+
 	return 0;
 }
 

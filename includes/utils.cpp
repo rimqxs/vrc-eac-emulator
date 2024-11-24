@@ -19,7 +19,7 @@ void utils::init_logger() {
 	SetConsoleTitleA("EAC Emulator");
 
 	static plog::ColorConsoleAppender<plog::TxtFormatter> consoleAppender;
-	plog::init(plog::debug, &consoleAppender);
+	plog::init(plog::verbose, &consoleAppender);
 }
 
 void* utils::scan_pattern(const char *pattern) {
