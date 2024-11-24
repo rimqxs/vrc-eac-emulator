@@ -14,5 +14,6 @@ add_library(EOSSDK-Win64-Shipping SHARED
         client_packet_processor.cpp
         client_packet_processor.h
         eos/eos_session_impl.cpp
-        ../includes/eos/eos_general_types.h
+        eos/eos.cpp
+        eos/eos.h
 )

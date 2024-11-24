@@ -1,6 +1,7 @@
 #include "request_login_packet.h"
 
 void request_login_packet::encode(write_stream& stream) {
+	stream.write_as<int32_t>(session_id);
 	stream.write_as<int32_t>(api_version);
 
 	stream.write_as<bool>(has_credentials);
@@ -19,6 +20,7 @@ void request_login_packet::encode(write_stream& stream) {
 }
 
 void request_login_packet::decode(read_stream& stream) {
+	session_id = stream.read_as<int32_t>();
 	api_version = stream.read_as<int32_t>();
 
 	has_credentials = stream.read_as<bool>();

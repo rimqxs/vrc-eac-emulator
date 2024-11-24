@@ -3,7 +3,6 @@
 #include "eos_utils.h"
 #include "eos/eos_api.h"
 
-
 bool initialized = false;
 void eos::initialize(EOS_InitializeOptions const& options) {
 	typedef EOS_EResult(EOS_CALL* EOS_Initialize)(EOS_InitializeOptions const*);
@@ -54,6 +53,18 @@ void eos::set_log_level(int category, EOS_ELogLevel level) {
 		return;
 	}
 	PLOGI.printf("Log level has been set successfully: category=%d, level=%d", category, level);
+}
+
+EOS_EResult eos::product_user_id_to_string(EOS_ProductUserId user_id, char* out_buffer, int32_t* in_out_buffer_length) {
+	typedef EOS_EResult(EOS_CALL* EOS_ProductUserId_ToString)(EOS_ProductUserId, char*, int32_t*);
+	static auto eos_product_user_id_to_string = reinterpret_cast<EOS_ProductUserId_ToString>(
+		eos_utils::get_eos_proc_addr("EOS_ProductUserId_ToString"));
+	if (!eos_product_user_id_to_string) {
+		PLOGF.printf("Could not resolve EOS_ProductUserId_ToString");
+		return -1;
+	}
+
+	return eos_product_user_id_to_string(user_id, out_buffer, in_out_buffer_length);
 }
 
 bool eos::is_eos_initialized() {

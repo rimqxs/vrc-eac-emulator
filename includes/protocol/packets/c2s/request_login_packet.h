@@ -5,6 +5,7 @@
 
 class request_login_packet : public packet {
 public:
+	int32_t session_id;
 	int32_t api_version;
 	bool has_credentials;
 	struct {

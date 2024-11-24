@@ -23,5 +23,5 @@ void initialize_eos_handler::handle(std::shared_ptr<packet> packet) {
 
 	// initialize eos logger
 	eos::set_logging_callback(&eos_logger::log);
-	eos::set_log_level(EOS_LC_ALL_CATEGORIES, EOS_LOG_VeryVerbose);
+	eos::set_log_level(EOS_LC_ALL_CATEGORIES, EOS_LOG_Warning);
 }
