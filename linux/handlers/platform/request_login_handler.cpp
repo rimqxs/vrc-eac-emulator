@@ -1,10 +1,25 @@
 #include "request_login_handler.h"
 
+#include "../../server.h"
 #include "../../eos/eos_platform.h"
 #include "protocol/packets/c2s/request_login_packet.h"
+#include "protocol/packets/s2c/response_login_packet.h"
 
 void EOS_CALL request_login_callback(const EOS_Connect_LoginCallbackInfo* data) {
-	PLOGI.printf("Login Callback: ResultCode=%d, LocalUserId=%d", data->ResultCode, data->LocalUserId);
+	if (data->ResultCode == EOS_Success) {
+		PLOGI.printf("Login successful: %lld", data->LocalUserId);
+	} else {
+		PLOGE.printf("Login failed: %d", data->ResultCode);
+	}
+
+	auto packet = std::make_shared<response_login_packet>();
+	packet->session_id = *static_cast<int*>(data->ClientData);
+	packet->result_code = data->ResultCode;
+	packet->local_user_id = data->LocalUserId;
+	packet->continuance_token = data->ContinuanceToken;
+	server::send_packet(packet);
+
+	free(data->ClientData);
 }
 
 void request_login_handler::handle(std::shared_ptr<packet> packet) {
@@ -47,7 +62,9 @@ void request_login_handler::handle(std::shared_ptr<packet> packet) {
 	}
 
 	EOS_HConnect connect_interface = eos_platform::get_connect_interface();
+	auto data = static_cast<int*>(malloc(sizeof(int)));
+	*data = request_login->session_id;
 	if (connect_interface != 0) {
-		eos_platform::connect_login(connect_interface, options, &request_login_callback);
+		eos_platform::connect_login(connect_interface, options, data, &request_login_callback);
 	}
 }

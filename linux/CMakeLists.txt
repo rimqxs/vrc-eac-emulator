@@ -29,4 +29,6 @@ add_library(version SHARED
         forwarding/exports.cpp
         forwarding/forwarder.cpp
         forwarding/forwarder.h
+        handlers/common/request_id2string_handler.cpp
+        handlers/common/request_id2string_handler.h
 )

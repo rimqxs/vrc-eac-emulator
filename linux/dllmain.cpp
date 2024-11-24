@@ -17,15 +17,13 @@ int __stdcall Dummy_WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	server::run();
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
-	while (!GetAsyncKeyState(VK_RETURN)) {
+	while (true) {
 		Sleep(1000 / 30); // emulate 30 fps
 
 		server::tick();
-
-		if (!eos::is_eos_initialized() || !eos_platform::is_platform_created()) {
-			continue;
+		if (eos::is_eos_initialized() && eos_platform::is_platform_created()) {
+			eos_platform::tick();
 		}
-		eos_platform::tick();
 	}
 
 	return 0;

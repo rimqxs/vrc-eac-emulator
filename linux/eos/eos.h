@@ -9,5 +9,7 @@ public:
 
 	static void set_log_level(int category, EOS_ELogLevel level);
 
+	static EOS_EResult product_user_id_to_string(EOS_ProductUserId user_id, char* out_buffer, int32_t* in_out_buffer_length);
+
 	static bool is_eos_initialized();
 };

@@ -35,6 +35,7 @@ void client::receive_loopback() {
                 return;
             }
 
+        	PLOGI.printf("Handling packet: %s", packet->get_name().c_str());
             client_packet_processor::handle(packet);
         }
 		stream.close();
@@ -90,4 +91,8 @@ void client::send_packet(const std::shared_ptr<packet>& packet) {
     mutex.lock();
     queued_packet.push_back(packet);
     mutex.unlock();
+}
+
+void client::tick() {
+	// TODO: Impl
 }
