@@ -1,7 +1,7 @@
 #include "request_login_handler.h"
 
-#include "../../server.h"
 #include "../../eos/eos_platform.h"
+#include "../../servers/socket_server.h"
 #include "protocol/packets/c2s/request_login_packet.h"
 #include "protocol/packets/s2c/response_login_packet.h"
 
@@ -17,7 +17,7 @@ void EOS_CALL request_login_callback(const EOS_Connect_LoginCallbackInfo* data) 
 	packet->result_code = data->ResultCode;
 	packet->local_user_id = data->LocalUserId;
 	packet->continuance_token = data->ContinuanceToken;
-	server::send_packet(packet);
+	socket_server::send_packet(packet);
 
 	free(data->ClientData);
 }

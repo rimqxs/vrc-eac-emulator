@@ -8,6 +8,9 @@
 #include <plog/Appenders/ColorConsoleAppender.h>
 #include <plog/Formatters/TxtFormatter.h>
 
+#include <chrono>
+#include <thread>
+
 void utils::init_logger() {
 	AllocConsole();
 
@@ -32,4 +35,8 @@ void* utils::scan_pattern(const char *pattern) {
 	}
 
 	return Sig::find(handle, image_size, pattern);
+}
+
+void utils::sleep(unsigned int ms) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }

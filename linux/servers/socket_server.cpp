@@ -1,12 +1,13 @@
-#include "server.h"
+#include "socket_server.h"
 
 #include <future>
 #include <plog/Log.h>
 
 #include "socket.h"
 #include "constants.h"
+#include "httplib.h"
 #include "protocol/packet_codec.h"
-#include "handlers/handler_registry.h"
+#include "../handlers/handler_registry.h"
 
 SOCKET clientSocket;
 std::mutex send_mutex, receive_mutex;
@@ -14,9 +15,37 @@ std::vector<std::shared_ptr<packet> > send_queued_packets, receive_queued_packet
 
 #define DEFAULT_BUFLEN 512
 
-void server::receive_loopback() {
-	handler_registry::init();
+void socket_server::launch() {
+	if (socket::init() != NULL) {
+		PLOGE.printf("socks::init failed");
+		return;
+	}
 
+	SOCKET socket_;
+	addrinfo* info;
+	if (socket::listen(HOST_SOCKET_PORT, &socket_, &info) != NULL) {
+		PLOGE.printf("Server setup failed");
+		return;
+	}
+
+	PLOGI.printf("Server started on localhost:%d! Waiting for connection...", HOST_SOCKET_PORT);
+	if (socket::accept(socket_, &clientSocket) != NULL) {
+		PLOGE.printf("Accepting client connection failed");
+		return;
+	}
+
+	std::thread(receive_loopback).detach();
+
+	PLOGD.printf("A connection established");
+}
+
+void socket_server::send_packet(const std::shared_ptr<packet>& packet) {
+	send_mutex.lock();
+	send_queued_packets.push_back(packet);
+	send_mutex.unlock();
+}
+
+void socket_server::receive_loopback() {
 	bool running = true;
 	char buf[DEFAULT_BUFLEN];
 	int buf_len = DEFAULT_BUFLEN;
@@ -44,37 +73,7 @@ void server::receive_loopback() {
 	}
 }
 
-void server::run() {
-	if (socket::init() != NULL) {
-		PLOGE.printf("socks::init failed");
-		return;
-	}
-
-	SOCKET socket_;
-	addrinfo* info;
-	if (socket::listen(HOST_PORT, &socket_, &info) != NULL) {
-		PLOGE.printf("Server setup failed");
-		return;
-	}
-
-	PLOGI.printf("Server started on localhost:%d! Waiting for connection...", HOST_PORT);
-	if (socket::accept(socket_, &clientSocket) != NULL) {
-		PLOGE.printf("Accepting client connection failed");
-		return;
-	}
-
-	std::thread(receive_loopback).detach();
-
-	PLOGD.printf("A connection established");
-}
-
-void server::send_packet(const std::shared_ptr<packet>& packet) {
-	send_mutex.lock();
-	send_queued_packets.push_back(packet);
-	send_mutex.unlock();
-}
-
-void server::tick() {
+void socket_server::tick() {
 	// perform receiving
 	receive_mutex.lock();
 	for (const auto& packet : receive_queued_packets) {

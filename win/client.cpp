@@ -35,7 +35,6 @@ void client::receive_loopback() {
                 return;
             }
 
-        	PLOGI.printf("Handling packet: %s", packet->get_name().c_str());
             client_packet_processor::handle(packet);
         }
 		stream.close();
@@ -61,7 +60,7 @@ void client::send_loopback() {
         queued_packet.clear();
         mutex.unlock();
 
-    	Sleep(100);
+    	Sleep(30);
     }
 }
 

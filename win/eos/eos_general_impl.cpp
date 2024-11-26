@@ -1,5 +1,7 @@
 #include <eos/eos_api.h>
 
+#include <future>
+
 #include "eos.h"
 #include "../client.h"
 #include "eos/eos_general_types.h"
@@ -51,7 +53,7 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_ProductUserId_ToString(EOS_ProductUserId 
 	packet->user_id = account_id;
 	client::send_packet(packet);
 
-	auto result = eos::wait_for_id2string(packet->session_id);
+	auto result = eos::wait_for_id2string(session_id);
 	auto buffer = std::get<1>(result);
 	auto buffer_size = std::get<2>(result);
 	if (buffer != nullptr) {
