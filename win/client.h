@@ -11,5 +11,10 @@ public:
 
     static void send_packet(const std::shared_ptr<packet>& packet);
 
+	template <typename T>
+	static void wait_for_packet() {
+		auto packet = std::make_shared<T>();
+	}
+
 	static void tick();
 };

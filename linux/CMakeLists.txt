@@ -5,8 +5,8 @@ add_library(version SHARED
         ${includes_deps}
         dllmain.cpp
 
-        server.cpp
-        server.h
+        servers/socket_server.cpp
+        servers/socket_server.h
 
         eos/eos_logger.h
         eos/eos_platform.h
@@ -29,6 +29,9 @@ add_library(version SHARED
         forwarding/exports.cpp
         forwarding/forwarder.cpp
         forwarding/forwarder.h
-        handlers/common/request_id2string_handler.cpp
-        handlers/common/request_id2string_handler.h
+        servers/http_server.cpp
+        servers/http_server.h
+        api/api_handlers.h
+        api/id2string_handler.cpp
+        api/id2string_handler.h
 )

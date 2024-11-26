@@ -7,20 +7,27 @@
 #include <plog/Formatters/TxtFormatter.h>
 
 #include "constants.h"
-#include "server.h"
 #include "utils.h"
+#include "api/api_handlers.h"
 #include "eos/eos.h"
 #include "eos/eos_platform.h"
 #include "forwarding/forwarder.h"
+#include "handlers/handler_registry.h"
+#include "servers/http_server.h"
+#include "servers/socket_server.h"
 
 int __stdcall Dummy_WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-	server::run();
+	handler_registry::init();
+	socket_server::launch();
+
+	api_handlers::init();
+	http_server::run();
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
 	while (true) {
 		Sleep(1000 / 30); // emulate 30 fps
 
-		server::tick();
+		socket_server::tick();
 		if (eos::is_eos_initialized() && eos_platform::is_platform_created()) {
 			eos_platform::tick();
 		}
