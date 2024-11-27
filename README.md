@@ -1,7 +1,10 @@
 # EAC Emulator
 
-WindowsとLinuxの2PC間で通信を行い、Windows側のEACを完全に無効化するプロジェクト
+LinuxとWindows間の2つのOS間で通信を行うことにより、
+Windowsマシン上でEasy AntiCheatを動かさずにゲームを起動するためのエミュレータ
 
 # サポート済みゲーム
 
 - VRChat
+
+#### FOR EDUCATIONAL USE ONLY
