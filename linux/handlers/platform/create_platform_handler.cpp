@@ -2,7 +2,7 @@
 
 #include "../../eos/eos_platform.h"
 #include "eos/eos_platform_types.h"
-#include "protocol/packets/c2s/create_platform_packet.h"
+#include "protocol/packets/create_platform_packet.h"
 
 void create_platform_handler::handle(std::shared_ptr<packet> packet) {
 	auto create_platform = std::static_pointer_cast<create_platform_packet>(packet);

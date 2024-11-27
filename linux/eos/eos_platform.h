@@ -10,5 +10,7 @@ public:
 
 	static EOS_HConnect get_connect_interface();
 
+	static EOS_HAntiCheatClient get_anticheat_client_interface();
+
 	static bool is_platform_created();
 };

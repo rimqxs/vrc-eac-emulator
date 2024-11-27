@@ -3,7 +3,7 @@
 #include "../../eos/eos.h"
 #include "../../eos/eos_logger.h"
 #include "eos/eos_general_types.h"
-#include "protocol/packets/c2s/initialize_eos_packet.h"
+#include "protocol/packets/initialize_eos_packet.h"
 
 void initialize_eos_handler::handle(std::shared_ptr<packet> packet) {
 	auto initialize_eos = std::static_pointer_cast<initialize_eos_packet>(packet);

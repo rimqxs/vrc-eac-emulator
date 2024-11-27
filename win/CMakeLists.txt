@@ -18,4 +18,8 @@ add_library(EOSSDK-Win64-Shipping SHARED
         ../includes/api/requests/login_status_request.h
         ../includes/api/response/login_status_response.cpp
         ../includes/api/response/login_status_response.h
+        ../includes/protocol/packets/begin_session_packet.cpp
+        ../includes/protocol/packets/begin_session_packet.h
+        ../includes/eos/eos_anticheat_types.h
+        eos/eos_anticheat_impl.cpp
 )
