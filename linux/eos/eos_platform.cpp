@@ -4,7 +4,6 @@
 #include "eos/eos_api.h"
 
 EOS_HPlatform hPlatform = NULL;
-
 void eos_platform::create_platform(EOS_Platform_Options const& options) {
 	typedef EOS_HPlatform (EOS_CALL*EOS_Platform_Create)(EOS_Platform_Options const*);
 	static auto eos_create_platform = reinterpret_cast<EOS_Platform_Create>(
@@ -50,6 +49,18 @@ EOS_HConnect eos_platform::get_connect_interface() {
 	}
 
 	return hConnect;
+}
+
+EOS_HAntiCheatClient eos_platform::get_anticheat_client_interface() {
+	typedef EOS_HAntiCheatClient (EOS_CALL*EOS_Platform_GetAntiCheatClientInterface)(EOS_HPlatform);
+	static auto eos_platform_get_anticheat_client_interface = reinterpret_cast<EOS_Platform_GetAntiCheatClientInterface>(
+		eos_utils::get_eos_proc_addr("EOS_Platform_GetAntiCheatClientInterface"));
+	if (!eos_platform_get_anticheat_client_interface) {
+		PLOGF.printf("Could not resolve EOS_Platform_GetAntiCheatClientInterface");
+		return 0;
+	}
+
+	return eos_platform_get_anticheat_client_interface(hPlatform);
 }
 
 bool eos_platform::is_platform_created() {

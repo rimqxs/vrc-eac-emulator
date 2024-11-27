@@ -2,7 +2,7 @@
 
 #include "../client.h"
 #include "eos/eos_platform_types.h"
-#include "protocol/packets/c2s/create_platform_packet.h"
+#include "protocol/packets/create_platform_packet.h"
 
 EOS_DECLARE_FUNC(EOS_HPlatform) DummyEOS_Platform_Create(EOS_Platform_Options* options) {
 	auto packet = std::make_shared<create_platform_packet>();

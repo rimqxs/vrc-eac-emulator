@@ -6,7 +6,7 @@
 #include "api/requests/id2string_request.h"
 #include "api/response/id2string_response.h"
 #include "eos/eos_general_types.h"
-#include "protocol/packets/c2s/initialize_eos_packet.h"
+#include "protocol/packets/initialize_eos_packet.h"
 
 EOS_DECLARE_FUNC(void) dummy_func() {
     PLOGF.printf("This should never happened");

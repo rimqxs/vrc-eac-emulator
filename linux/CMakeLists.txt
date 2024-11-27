@@ -39,4 +39,8 @@ add_library(version SHARED
         api/login_status_handler.h
         eos/eos_connect.cpp
         eos/eos_connect.h
+        eos/eos_anticheat.cpp
+        eos/eos_anticheat.h
+        handlers/platform/begin_session_handler.cpp
+        handlers/platform/begin_session_handler.h
 )
