@@ -1,10 +1,12 @@
 #pragma once
-#include "api/request.h"
+#include "api/response.h"
 #include "eos/eos_api.h"
 
-class id2string_request : public request {
+class login_response : public response {
 public:
-	EOS_ProductUserId user_id;
+	EOS_EResult result_code;
+	EOS_ProductUserId local_user_id;
+	EOS_ContinuanceToken continuance_token;
 
 	nlohmann::json serialize(nlohmann::json& json) override;
 

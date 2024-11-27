@@ -5,17 +5,19 @@
 #include <unordered_map>
 
 #include "id2string_handler.h"
+#include "login_handler.h"
 #include "api/request.h"
 #include "api/response.h"
 #include "api/session_id.h"
 
-class api_handlers {
+class api_handler_registry {
 	typedef std::shared_ptr<response>(*HandlerFuncPtr)(std::shared_ptr<request>);
 	static inline std::unordered_map<int, HandlerFuncPtr> handlers;
 
 public:
 	static void init() {
 		handlers[ID2STRING_REQ_ID] = id2string_handler::handle;
+		handlers[LOGIN_REQ_ID] = login_handler::handle;
 
 		PLOGD.printf("Collected %d handlers", handlers.size());
 	}

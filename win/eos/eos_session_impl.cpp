@@ -1,32 +1,45 @@
 #include <eos/eos_api.h>
 #include <eos/eos_login_types.h>
 
-#include "eos.h"
+#include <thread>
+
+#include "utils.h"
 #include "../client.h"
+#include "api/requests/login_request.h"
+#include "api/response/login_response.h"
 #include "protocol/packet_factory.h"
-#include "protocol/packets/c2s/request_login_packet.h"
 
-static inline int session_id = 1000;
+void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void* client_data, std::shared_ptr<login_response> response) {
+	utils::sleep(400); // delay
+
+	EOS_Connect_LoginCallbackInfo info{};
+	info.ResultCode = response->result_code;
+	info.ClientData = client_data;
+	info.LocalUserId = response->local_user_id;
+	info.ContinuanceToken = response->continuance_token;
+	completion_delegate(&info);
+	PLOGD.printf("Logged in successfully: user_id=%d", info.LocalUserId);
+}
+
 EOS_DECLARE_FUNC(void) DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Connect_LoginOptions* options, void* client_data, const EOS_Connect_OnLoginCallback completion_delegate) {
-	auto packet = std::make_shared<request_login_packet>();
-	packet->session_id = session_id++;
-	packet->api_version = options->ApiVersion;
+	auto request = std::make_shared<login_request>();
+	request->api_version = options->ApiVersion;
 
-	packet->has_credentials = options->Credentials != nullptr;
+	request->has_credentials = options->Credentials != nullptr;
 	if (options->Credentials != nullptr) {
-		packet->credentials.ApiVersion = options->Credentials->ApiVersion;
-		packet->credentials.Token = nullable_string(options->Credentials->Token);
-		packet->credentials.Type = options->Credentials->Type;
+		request->credentials.ApiVersion = options->Credentials->ApiVersion;
+		request->credentials.Token = nullable_string(options->Credentials->Token);
+		request->credentials.Type = options->Credentials->Type;
 	}
 
-	packet->has_login_info = options->UserLoginInfo != nullptr;
+	request->has_login_info = options->UserLoginInfo != nullptr;
 	if (options->UserLoginInfo != nullptr) {
-		packet->user_login_info.ApiVersion = options->UserLoginInfo->ApiVersion;
-		packet->user_login_info.DisplayName = nullable_string(options->UserLoginInfo->DisplayName);
-		packet->user_login_info.NsaIdToken = nullable_string(options->UserLoginInfo->NsaIdToken);
+		request->user_login_info.ApiVersion = options->UserLoginInfo->ApiVersion;
+		request->user_login_info.DisplayName = nullable_string(options->UserLoginInfo->DisplayName);
+		request->user_login_info.NsaIdToken = nullable_string(options->UserLoginInfo->NsaIdToken);
 	}
 
 	PLOGI.printf("Requesting login to proxy");
-	eos::register_connect_callback(packet->session_id, std::make_tuple(client_data, completion_delegate));
-	client::send_packet(packet);
+	auto response = client::request<login_response>(request);
+	std::thread(login_callback, completion_delegate, client_data, response).detach();
 }

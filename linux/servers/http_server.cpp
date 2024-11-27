@@ -3,23 +3,23 @@
 #include "constants.h"
 #include "httplib.h"
 #include "json.hpp"
-#include "../api/api_handlers.h"
+#include "../api/api_handler_registry.h"
 #include "api/session_factory.h"
 
 void http_server::init() {
 	httplib::Server server;
 	server.Post("/task", [](const httplib::Request& req, httplib::Response& res) {
-		PLOGI.printf("[HTTP] Request received: %s\n", req.body.c_str());
+		PLOGI.printf("[HTTP] Request received: %s", req.body.c_str());
 		nlohmann::json json = nlohmann::json::parse(req.body);
 		auto request = session_factory::create_request(json["id"]);
 		if (request == nullptr) {
-			PLOGF.printf("Invalid request id: %s\n", json["id"].get<std::string>().c_str());
+			PLOGF.printf("Invalid request id: %s", json["id"].get<std::string>().c_str());
 			res.status = 500; // Internal server error
 			return;
 		}
 		request->deserialize(json);
 
-		auto handler = api_handlers::get_handler_by_id(request->get_id());
+		auto handler = api_handler_registry::get_handler_by_id(request->get_id());
 		if (handler == nullptr) {
 			return;
 		}

@@ -8,7 +8,7 @@
 
 #include "constants.h"
 #include "utils.h"
-#include "api/api_handlers.h"
+#include "api/api_handler_registry.h"
 #include "eos/eos.h"
 #include "eos/eos_platform.h"
 #include "forwarding/forwarder.h"
@@ -20,7 +20,7 @@ int __stdcall Dummy_WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	handler_registry::init();
 	socket_server::launch();
 
-	api_handlers::init();
+	api_handler_registry::init();
 	http_server::run();
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");

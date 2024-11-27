@@ -1,13 +1,18 @@
 #include "client.h"
 
+#include "socket.h"
+#include "httplib.h"
+
 #include <future>
 #include <plog/Log.h>
 
-#include "socket.h"
 #include "constants.h"
 #include "client_packet_processor.h"
+
 #include "protocol/packet_codec.h"
 #include "protocol/packets/handshake_packet.h"
+
+#include "api/session_factory.h"
 
 SOCKET socket_;
 std::mutex mutex;
@@ -70,8 +75,8 @@ void client::connect() {
         return;
     }
 
-    PLOGD.printf("Connecting to the server %s:%d!", HOST_IP_ADDR, HOST_PORT);
-    while (socket::connect(HOST_IP_ADDR, HOST_PORT, &socket_)) {
+    PLOGD.printf("Connecting to the server %s:%d!", HOST_IP_ADDR, HOST_SOCKET_PORT);
+    while (socket::connect(HOST_IP_ADDR, HOST_SOCKET_PORT, &socket_)) {
         PLOGW.printf("socks::connect failed, retrying after 5 seconds...");
         Sleep(5000);
     }
@@ -90,6 +95,31 @@ void client::send_packet(const std::shared_ptr<packet>& packet) {
     mutex.lock();
     queued_packet.push_back(packet);
     mutex.unlock();
+}
+
+std::shared_ptr<response> client::_request(std::shared_ptr<::request> const& request)  {
+	httplib::Client client(std::format("http://{}:{}", HOST_IP_ADDR, HOST_HTTP_PORT));
+
+	nlohmann::json serialized;
+	request->serialize(serialized);
+
+	auto res = client.Post("/task", serialized.dump(), "application/json");
+	if (res->status != 200) {
+		PLOGE.printf("[HTTP] The server has returned an error: %d", res->status);
+		return nullptr;
+	}
+
+	nlohmann::json json = nlohmann::json::parse(res->body);
+	PLOGI.printf("[HTTP] Response received: %s", json.dump().c_str());
+
+	auto response = session_factory::create_response(json["id"]);
+	if (response == nullptr) {
+		PLOGF.printf("Invalid request id: %d", json["id"]);
+		return nullptr;
+	}
+	response->deserialize(json);
+
+	return response;
 }
 
 void client::tick() {
