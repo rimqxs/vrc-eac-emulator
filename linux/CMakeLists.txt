@@ -20,8 +20,6 @@ add_library(version SHARED
         handlers/handler_registry.h
         handlers/platform/create_platform_handler.cpp
         handlers/platform/create_platform_handler.h
-        handlers/platform/request_login_handler.cpp
-        handlers/platform/request_login_handler.h
         handlers/common/initialize_eos_handler.cpp
         handlers/common/initialize_eos_handler.h
         handlers/common/handshake_packet_handler.cpp

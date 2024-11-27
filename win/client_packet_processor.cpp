@@ -1,7 +1,6 @@
 #include "client_packet_processor.h"
 
 #include "protocol/packets/handshake_packet.h"
-#include "protocol/packets/s2c/response_id2string_packet.h"
 
 void client_packet_processor::handle(std::shared_ptr<packet> packet) {
     if (packet->get_id() == HANDSHAKE_PACKET_ID) {
