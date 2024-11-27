@@ -5,7 +5,6 @@
 #include "common/handshake_packet_handler.h"
 #include "common/initialize_eos_handler.h"
 #include "platform/create_platform_handler.h"
-#include "platform/request_login_handler.h"
 #include "protocol/packet.h"
 
 class handler_registry {
@@ -15,7 +14,6 @@ public:
 
 	static void init() {
 		handlers[HANDSHAKE_PACKET_ID] = handshake_packet_handler::handle;
-		handlers[REQUEST_LOGIN_PACKET_ID] = request_login_handler::handle;
 		handlers[CREATE_PLATFORM_PACKET_ID] = create_platform_handler::handle;
 		handlers[INITIALIZE_EOS_PACKET_ID] = initialize_eos_handler::handle;
 
