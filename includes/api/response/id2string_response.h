@@ -5,7 +5,6 @@
 
 class id2string_response : public response {
 public:
-	int session_id;
 	EOS_EResult result;
 	nullable_string buffer;
 	int32_t buffer_size;

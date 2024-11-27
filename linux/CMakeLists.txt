@@ -7,6 +7,8 @@ add_library(version SHARED
 
         servers/socket_server.cpp
         servers/socket_server.h
+        servers/http_server.cpp
+        servers/http_server.h
 
         eos/eos_logger.h
         eos/eos_platform.h
@@ -25,13 +27,14 @@ add_library(version SHARED
         handlers/common/handshake_packet_handler.cpp
         handlers/common/handshake_packet_handler.h
 
+        api/api_handler_registry.h
+        api/id2string_handler.cpp
+        api/id2string_handler.h
+        api/login_handler.cpp
+        api/login_handler.h
+
         forwarding/exports.def
         forwarding/exports.cpp
         forwarding/forwarder.cpp
         forwarding/forwarder.h
-        servers/http_server.cpp
-        servers/http_server.h
-        api/api_handlers.h
-        api/id2string_handler.cpp
-        api/id2string_handler.h
 )

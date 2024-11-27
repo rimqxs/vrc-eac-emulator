@@ -1,5 +1,6 @@
 #pragma once
 
+#include "api/session_id.h"
 #include "json.hpp"
 
 class request {

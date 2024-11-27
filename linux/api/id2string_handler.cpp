@@ -14,13 +14,13 @@ std::shared_ptr<response> id2string_handler::handle(std::shared_ptr<request> req
 	ZeroMemory(buffer, sizeof(buffer));
 	EOS_EResult result = eos::product_user_id_to_string(request_id2string->user_id, buffer, &buffer_length);
 	if (result != EOS_Success) {
+		buffer_length = 0;
 		PLOGE.printf("Failed to parse userId to str: %d, length=%d", result, buffer_length);
 	} else {
 		PLOGD.printf("parsed userId to str: %s", buffer);
 	}
 
 	auto response = std::make_shared<id2string_response>();
-	response->session_id = request_id2string->session_id;
 	response->result = result;
 	response->buffer = nullable_string(buffer);
 	response->buffer_size = buffer_length;

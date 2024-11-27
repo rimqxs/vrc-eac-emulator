@@ -2,11 +2,11 @@
 
 #include <future>
 
-#include "eos.h"
 #include "../client.h"
+#include "api/requests/id2string_request.h"
+#include "api/response/id2string_response.h"
 #include "eos/eos_general_types.h"
 #include "protocol/packets/c2s/initialize_eos_packet.h"
-#include "protocol/packets/c2s/request_id2string_packet.h"
 
 EOS_DECLARE_FUNC(void) dummy_func() {
     PLOGF.printf("This should never happened");
@@ -47,15 +47,12 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_Logging_SetLogLevel(int category, int lev
 }
 
 EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_ProductUserId_ToString(EOS_ProductUserId account_id, char* out_buffer, int32_t* in_out_buffer_length) {
-	static int session_id = 1000;
-	auto packet = std::make_shared<request_id2string_packet>();
-	packet->session_id = session_id++;
-	packet->user_id = account_id;
-	client::send_packet(packet);
+	auto request = std::make_shared<id2string_request>();
+	request->user_id = account_id;
 
-	auto result = eos::wait_for_id2string(session_id);
-	auto buffer = std::get<1>(result);
-	auto buffer_size = std::get<2>(result);
+	auto response = client::request<id2string_response>(request);
+	auto buffer = response->buffer;
+	auto buffer_size = response->buffer_size;
 	if (buffer != nullptr) {
 		ZeroMemory(out_buffer, *in_out_buffer_length);
 		memcpy(out_buffer, buffer.c_str(), buffer_size + 1);
@@ -63,7 +60,7 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_ProductUserId_ToString(EOS_ProductUserId 
 	*in_out_buffer_length = buffer_size;
 	PLOGI.printf("Writing: ProductUserId=%s len=%d", buffer.c_str(), buffer_size);
 
-	return std::get<0>(result);
+	return response->result;
 }
 
 // IDK what this function does, but it's called by gameassembly.dll

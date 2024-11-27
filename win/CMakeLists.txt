@@ -14,13 +14,4 @@ add_library(EOSSDK-Win64-Shipping SHARED
         client_packet_processor.cpp
         client_packet_processor.h
         eos/eos_session_impl.cpp
-        ../includes/api/request.h
-        ../includes/api/response.h
-        ../includes/api/requests/id2string_request.cpp
-        ../includes/api/requests/id2string_request.h
-        ../includes/api/response/id2string_response.cpp
-        ../includes/api/response/id2string_response.h
-        ../includes/api/json_helper.h
-        ../includes/api/session_id.h
-        ../includes/api/session_factory.h
 )
