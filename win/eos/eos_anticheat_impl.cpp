@@ -1,3 +1,4 @@
+#include "utils.h"
 #include "../client.h"
 #include "eos/eos_anticheat_types.h"
 #include "eos/eos_api.h"
@@ -10,6 +11,8 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiChe
 	packet->user_id = options->LocalUserId;
 	packet->mode = options->Mode;
 	client::send_packet(packet);
+
+	utils::sleep(1000); // delaying for 1 second to make sure the packet is processed
 
 	return EOS_Success;
 }
