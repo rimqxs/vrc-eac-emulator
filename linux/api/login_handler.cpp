@@ -5,6 +5,7 @@
 #include <plog/Log.h>
 
 #include "vlock.h"
+#include "../eos/eos_connect.h"
 #include "../eos/eos_platform.h"
 #include "api/requests/login_request.h"
 #include "api/response/login_response.h"
@@ -68,7 +69,7 @@ std::shared_ptr<response> login_handler::handle(std::shared_ptr<request> request
 	vlock<std::shared_ptr<login_response>> lock;
 	EOS_HConnect connect_interface = eos_platform::get_connect_interface();
 	if (connect_interface != 0) {
-		eos_platform::connect_login(connect_interface, options, &lock, &request_login_callback);
+		eos_connect::login(connect_interface, options, &lock, &request_login_callback);
 	}
 
 	return lock.wait();

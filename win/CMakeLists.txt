@@ -14,4 +14,8 @@ add_library(EOSSDK-Win64-Shipping SHARED
         client_packet_processor.cpp
         client_packet_processor.h
         eos/eos_session_impl.cpp
+        ../includes/api/requests/login_status_request.cpp
+        ../includes/api/requests/login_status_request.h
+        ../includes/api/response/login_status_response.cpp
+        ../includes/api/response/login_status_response.h
 )

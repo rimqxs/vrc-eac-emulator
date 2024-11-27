@@ -10,7 +10,5 @@ public:
 
 	static EOS_HConnect get_connect_interface();
 
-	static void connect_login(EOS_HConnect hConnect, EOS_Connect_LoginOptions const& options, void* data, const EOS_Connect_OnLoginCallback callback);
-
 	static bool is_platform_created();
 };

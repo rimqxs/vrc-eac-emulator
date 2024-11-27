@@ -35,4 +35,8 @@ add_library(version SHARED
         forwarding/exports.cpp
         forwarding/forwarder.cpp
         forwarding/forwarder.h
+        api/login_status_handler.cpp
+        api/login_status_handler.h
+        eos/eos_connect.cpp
+        eos/eos_connect.h
 )
