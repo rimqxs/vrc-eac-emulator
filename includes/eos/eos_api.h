@@ -16,6 +16,7 @@ typedef uintptr_t EOS_HAchievements;
 typedef uintptr_t EOS_NotificationId;
 typedef uintptr_t EOS_ProductUserId;
 typedef uintptr_t EOS_ContinuanceToken;
+typedef uintptr_t EOS_ELoginStatus;
 
 #define EOS_EXTERN_C extern "C"
 #define EOS_CALL __stdcall

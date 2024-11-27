@@ -52,18 +52,6 @@ EOS_HConnect eos_platform::get_connect_interface() {
 	return hConnect;
 }
 
-void eos_platform::connect_login(EOS_HConnect hConnect, EOS_Connect_LoginOptions const& options, void* data, const EOS_Connect_OnLoginCallback callback) {
-	typedef void (EOS_CALL*EOS_Connect_Login)(EOS_HConnect, EOS_Connect_LoginOptions const*, void*, EOS_Connect_OnLoginCallback);
-	static auto eos_connect_login = reinterpret_cast<EOS_Connect_Login>(
-		eos_utils::get_eos_proc_addr("EOS_Connect_Login"));
-	if (!eos_connect_login) {
-		PLOGF.printf("Could not resolve EOS_Connect_Login");
-		return;
-	}
-
-	eos_connect_login(hConnect, &options, data, callback);
-}
-
 bool eos_platform::is_platform_created() {
 	return hPlatform != NULL;
 }

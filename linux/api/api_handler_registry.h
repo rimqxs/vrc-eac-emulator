@@ -6,6 +6,7 @@
 
 #include "id2string_handler.h"
 #include "login_handler.h"
+#include "login_status_handler.h"
 #include "api/request.h"
 #include "api/response.h"
 #include "api/session_id.h"
@@ -18,6 +19,7 @@ public:
 	static void init() {
 		handlers[ID2STRING_REQ_ID] = id2string_handler::handle;
 		handlers[LOGIN_REQ_ID] = login_handler::handle;
+		handlers[LOGIN_STATUS_REQ_ID] = login_status_handler::handle;
 
 		PLOGD.printf("Collected %d handlers", handlers.size());
 	}

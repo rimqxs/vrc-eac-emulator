@@ -6,7 +6,9 @@
 #include "utils.h"
 #include "../client.h"
 #include "api/requests/login_request.h"
+#include "api/requests/login_status_request.h"
 #include "api/response/login_response.h"
+#include "api/response/login_status_response.h"
 #include "protocol/packet_factory.h"
 
 void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void* client_data, std::shared_ptr<login_response> response) {
@@ -42,4 +44,12 @@ EOS_DECLARE_FUNC(void) DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Con
 	PLOGI.printf("Requesting login to proxy");
 	auto response = client::request<login_response>(request);
 	std::thread(login_callback, completion_delegate, client_data, response).detach();
+}
+
+EOS_DECLARE_FUNC(EOS_ELoginStatus) DummyEOS_Connect_GetLoginStatus(EOS_HConnect Handle, EOS_ProductUserId LocalUserId) {
+	auto request = std::make_shared<login_status_request>();
+	request->user_id = LocalUserId;
+
+	auto response = client::request<login_status_response>(request);
+	return response->status;
 }
