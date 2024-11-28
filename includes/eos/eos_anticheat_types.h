@@ -25,6 +25,10 @@ struct EOS_AntiCheatClient_ReceiveMessageFromServerOptions {
 	const void* Data;
 };
 
+struct EOS_AntiCheatClient_EndSessionOptions {
+	int32_t ApiVersion;
+};
+
 EOS_DECLARE_CALLBACK(EOS_AntiCheatClient_OnMessageToServerCallback, const EOS_AntiCheatClient_OnMessageToServerCallbackInfo*);
 
 #pragma pack(pop)

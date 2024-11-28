@@ -2,7 +2,7 @@
 
 #include "../../eos/eos_anticheat.h"
 #include "../../eos/eos_platform.h"
-#include "protocol/packets/begin_session_packet.h"
+#include "../../../includes/protocol/packets/begin_session_packet.h"
 
 void begin_session_handler::handle(std::shared_ptr<packet> packet) {
 	auto begin_session = std::static_pointer_cast<begin_session_packet>(packet);

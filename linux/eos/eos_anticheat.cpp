@@ -14,6 +14,18 @@ EOS_EResult eos_anticheat::begin_session(EOS_HAntiCheatClient handle, EOS_AntiCh
 	return eos_anticheat_client_begin_session(handle, &options);
 }
 
+EOS_EResult eos_anticheat::end_session(EOS_HAntiCheatClient handle, EOS_AntiCheatClient_EndSessionOptions const& options) {
+	typedef EOS_EResult (EOS_CALL*EOS_AntiCheatClient_EndSession)(EOS_HAntiCheatClient, const EOS_AntiCheatClient_EndSessionOptions*);
+	static auto eos_anticheat_client_end_session = reinterpret_cast<EOS_AntiCheatClient_EndSession>(
+		eos_utils::get_eos_proc_addr("EOS_AntiCheatClient_EndSession"));
+	if (!eos_anticheat_client_end_session) {
+		PLOGF.printf("Could not resolve EOS_AntiCheatClient_EndSession");
+		return 0;
+	}
+
+	return eos_anticheat_client_end_session(handle, &options);
+}
+
 EOS_NotificationId eos_anticheat::add_notify_message_to_server(EOS_HAntiCheatClient handle, EOS_AntiCheatClient_AddNotifyMessageToServerOptions const& options, void* client_data, EOS_AntiCheatClient_OnMessageToServerCallback notification_fn) {
 	typedef EOS_NotificationId (EOS_CALL*EOS_AntiCheatClient_AddNotifyMessageToServer)(EOS_HAntiCheatClient, const EOS_AntiCheatClient_AddNotifyMessageToServerOptions*, void*, EOS_AntiCheatClient_OnMessageToServerCallback);
 	static auto eos_anticheat_client_add_notify_message_to_server = reinterpret_cast<EOS_AntiCheatClient_AddNotifyMessageToServer>(

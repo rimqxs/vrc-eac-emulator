@@ -41,10 +41,12 @@ add_library(version SHARED
         eos/eos_connect.h
         eos/eos_anticheat.cpp
         eos/eos_anticheat.h
-        handlers/platform/begin_session_handler.cpp
-        handlers/platform/begin_session_handler.h
+        handlers/anticheat/begin_session_handler.cpp
+        handlers/anticheat/begin_session_handler.h
         handlers/notification/notify_message_to_server_handler.cpp
         handlers/notification/notify_message_to_server_handler.h
         handlers/anticheat/receive_message_handler.cpp
         handlers/anticheat/receive_message_handler.h
+        handlers/anticheat/end_session_handler.cpp
+        handlers/anticheat/end_session_handler.h
 )
