@@ -3,6 +3,7 @@
 #include "eos/eos_anticheat_types.h"
 #include "eos/eos_api.h"
 #include "protocol/packets/begin_session_packet.h"
+#include "protocol/packets/end_session_packet.h"
 #include "protocol/packets/receive_message_packet.h"
 
 EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_BeginSessionOptions* options) {
@@ -11,6 +12,15 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiChe
 	packet->api_version = options->ApiVersion;
 	packet->user_id = options->LocalUserId;
 	packet->mode = options->Mode;
+	client::send_packet(packet);
+
+	return EOS_Success;
+}
+
+EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_EndSessionOptions* options) {
+	PLOGI.printf("Ending session");
+	auto packet = std::make_shared<end_session_packet>();
+	packet->options.ApiVersion = options->ApiVersion;
 	client::send_packet(packet);
 
 	return EOS_Success;

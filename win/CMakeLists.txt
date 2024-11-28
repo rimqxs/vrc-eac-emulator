@@ -19,4 +19,6 @@ add_library(EOSSDK-Win64-Shipping SHARED
         ../includes/protocol/packets/notify_message_to_server_packet.h
         ../includes/protocol/packets/receive_message_packet.cpp
         ../includes/protocol/packets/receive_message_packet.h
+        ../includes/protocol/packets/end_session_packet.cpp
+        ../includes/protocol/packets/end_session_packet.h
 )

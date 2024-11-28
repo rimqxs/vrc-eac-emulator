@@ -6,7 +6,8 @@
 #include "common/handshake_packet_handler.h"
 #include "common/initialize_eos_handler.h"
 #include "notification/notify_message_to_server_handler.h"
-#include "platform/begin_session_handler.h"
+#include "anticheat/begin_session_handler.h"
+#include "anticheat/end_session_handler.h"
 #include "platform/create_platform_handler.h"
 #include "protocol/packet.h"
 
@@ -22,6 +23,7 @@ public:
 		handlers[BEGIN_SESSION_PACKET_ID] = begin_session_handler::handle;
 		handlers[NOTIFY_MESSAGE_TO_SERVER_PACKET_ID] = notify_message_to_server_handler::handle;
 		handlers[RECEIVE_MESSAGE_PACKET_ID] = receive_message_handler::handle;
+		handlers[END_SESSION_PACKET_ID] = end_session_handler::handle;
 
 		PLOGD.printf("Collected %d handlers", handlers.size());
 	}
