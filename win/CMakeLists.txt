@@ -15,4 +15,8 @@ add_library(EOSSDK-Win64-Shipping SHARED
         client_packet_processor.h
         eos/eos_session_impl.cpp
         eos/eos_anticheat_impl.cpp
+        ../includes/protocol/packets/notify_message_to_server_packet.cpp
+        ../includes/protocol/packets/notify_message_to_server_packet.h
+        ../includes/protocol/packets/receive_message_packet.cpp
+        ../includes/protocol/packets/receive_message_packet.h
 )

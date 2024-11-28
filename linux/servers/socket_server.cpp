@@ -13,8 +13,6 @@ SOCKET clientSocket;
 std::mutex send_mutex, receive_mutex;
 std::vector<std::shared_ptr<packet> > send_queued_packets, receive_queued_packets;
 
-#define DEFAULT_BUFLEN 512
-
 void socket_server::launch() {
 	if (socket::init() != NULL) {
 		PLOGE.printf("socks::init failed");
