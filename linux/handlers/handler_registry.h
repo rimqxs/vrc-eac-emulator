@@ -2,8 +2,10 @@
 
 #include <unordered_map>
 
+#include "anticheat/receive_message_handler.h"
 #include "common/handshake_packet_handler.h"
 #include "common/initialize_eos_handler.h"
+#include "notification/notify_message_to_server_handler.h"
 #include "platform/begin_session_handler.h"
 #include "platform/create_platform_handler.h"
 #include "protocol/packet.h"
@@ -18,6 +20,8 @@ public:
 		handlers[CREATE_PLATFORM_PACKET_ID] = create_platform_handler::handle;
 		handlers[INITIALIZE_EOS_PACKET_ID] = initialize_eos_handler::handle;
 		handlers[BEGIN_SESSION_PACKET_ID] = begin_session_handler::handle;
+		handlers[NOTIFY_MESSAGE_TO_SERVER_PACKET_ID] = notify_message_to_server_handler::handle;
+		handlers[RECEIVE_MESSAGE_PACKET_ID] = receive_message_handler::handle;
 
 		PLOGD.printf("Collected %d handlers", handlers.size());
 	}

@@ -18,7 +18,7 @@ SOCKET socket_;
 std::mutex mutex;
 std::vector<std::shared_ptr<packet>> queued_packet;
 
-#define DEFAULT_BUFLEN 512
+#define DEFAULT_BUFLEN 10000
 
 void client::receive_loopback() {
     bool running = true;
