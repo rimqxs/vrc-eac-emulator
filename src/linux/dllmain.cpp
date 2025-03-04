@@ -37,18 +37,7 @@ int __stdcall Dummy_WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	return 0;
 }
 
-void init() {
-	utils::init_logger();
-	PLOGI.printf("Console initialized");
-
-	if (LoadLibraryA(EOS_SDK_PATH) == nullptr) {
-		PLOGF.printf("Failed to perform LoadLibraryA EOSSDK-Win64-Shipping.dll!");
-		return;
-	}
-	PLOGD.printf("EOSSDK-Win64-Shipping.dll Loaded");
-
-	MH_Initialize();
-#if HOOK_MODE==il2cpp
+void hook_winmain() {
 	HMODULE unityPlayerHandle = GetModuleHandleA("UnityPlayer.dll");
 	void* unityMain = GetProcAddress(unityPlayerHandle, "UnityMain");
 	PLOGD.printf("UnityPlayer.dll WinMain=%llx", unityMain);
@@ -60,7 +49,20 @@ void init() {
 	}
 	PLOGI.printf("Created WinMain function hook");
 	PLOGI.printf("Waiting for the main process...");
-#endif
+}
+
+void init() {
+	utils::init_logger();
+	PLOGI.printf("Console initialized");
+
+	if (LoadLibraryA(EOS_SDK_PATH) == nullptr) {
+		PLOGF.printf("Failed to perform LoadLibraryA EOSSDK-Win64-Shipping.dll!");
+		return;
+	}
+	PLOGD.printf("EOSSDK-Win64-Shipping.dll Loaded");
+
+	MH_Initialize();
+	hook_winmain();
 }
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
