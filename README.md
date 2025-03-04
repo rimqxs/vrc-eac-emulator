@@ -9,16 +9,19 @@ Disable EasyAntiCheat completely on the Windows side by communicating between VR
 
 Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows, so that the fraud checks by their anticheat are completely disabled on the Windows side. It means windows can play the game with the EAC completely disabled!
 
-## Building
+## How to use
 
-### For Visual Studio users
+This section is so huge, so I made a separate document for this. Please check [this document](./SETUP_GUIDE.md) for more information.
 
-1. Open this project by Selecting "Open Local File" on Visual Studio.
-2. Change the build type of your CMake profile to "Release"
-3. Now build windows-side and linux-side of the project!
+## Libraries used
 
-### For Clion users
+- [MinHook](https://github.com/TsudaKageyu/minhook) - TsudaKageyu
+- [Plog](https://github.com/SergiusTheBest/plog) - Sergey Podobry
+- [cpp-httplib](https://github.com/yhirose/cpp-httplib) - yhirose
+- [JSON for Modern C++](https://github.com/nlohmann/json) - Niels Lohmann
+- [base64](https://github.com/tobiaslocker/base64/tree/master) - Tobias Locker
 
-1. Just open this directory on Clion.
-2. Change the build type of your CMake profile to "Release" and make sure Tool-Chain your selected is "Visual Studio"
-3. Now build windows-side and linux-side of the project!
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+You can use this project for any purpose even for commercial use. 

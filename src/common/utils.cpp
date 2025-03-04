@@ -20,7 +20,7 @@ void utils::init_logger() {
 
 	SetConsoleTitleA("EAC Emulator");
 
-	static plog::ColorConsoleAppender<plog::TxtFormatter> consoleAppender;
+	static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
 	plog::init(plog::verbose, &consoleAppender);
 }
 
