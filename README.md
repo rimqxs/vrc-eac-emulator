@@ -5,6 +5,10 @@ Disable EasyAntiCheat completely on the Windows side by communicating between VR
 > [!IMPORTANT]
 > This project is for educational purposes only. I am not responsible for any damage caused by this project.
 
+## Showcase
+
+https://github.com/user-attachments/assets/860ea1d0-2d04-4218-a55c-5d34a974cd12
+
 ## How does it work?
 
 Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows, so that the fraud checks by their anticheat are completely disabled on the Windows side. It means windows can play the game with the EAC completely disabled!
