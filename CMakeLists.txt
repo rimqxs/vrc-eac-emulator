@@ -25,11 +25,15 @@ include_directories(
 #############################################################
 
 file(GLOB_RECURSE includes_deps
-        "includes/*.cpp"
         "includes/*.hpp"
         "includes/*.h"
+
+        "src/common/*.cpp"
+        "src/common/*.hpp"
+        "src/common/*.h"
 )
 include_directories(includes)
+include_directories(src)
 
-add_subdirectory(win)
-add_subdirectory(linux)
+add_subdirectory(src/win)
+add_subdirectory(src/linux)

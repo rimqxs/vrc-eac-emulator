@@ -1,18 +1,24 @@
-**このプロジェクトの如何なる内容を外部に公開することを禁止します**
+# EasyAntiCheat Emulator on VRChat
 
-![image](https://github.com/user-attachments/assets/fd70eeeb-d967-41ff-8b6b-fd44331c5611)
+Disable EasyAntiCheat completely on the Windows side by communicating between VRChat processes between Windows and Linux!
 
-# EAC Emulator
+> [!IMPORTANT]
+> This project is for educational purposes only. I am not responsible for any damage caused by this project.
 
-LinuxとWindows間の2つのOS間で通信を行うことにより、
-Windowsマシン上でEasy AntiCheatを動かさずにゲームを起動するためのエミュレータ
+## How does it work?
 
-# チュートリアル
+Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows, so that the fraud checks by their anticheat are completely disabled on the Windows side. It means windows can play the game with the EAC completely disabled!
 
-[使用方法は別ファイルにまとめてあります](/TUTORIAL.md)
+## Building
 
-# サポート済みゲーム
+### For Visual Studio users
 
-- VRChat
+1. Open this project by Selecting "Open Local File" on Visual Studio.
+2. Change the build type of your CMake profile to "Release"
+3. Now build windows-side and linux-side of the project!
 
-#### FOR EDUCATIONAL USE ONLY
+### For Clion users
+
+1. Just open this directory on Clion.
+2. Change the build type of your CMake profile to "Release" and make sure Tool-Chain your selected is "Visual Studio"
+3. Now build windows-side and linux-side of the project!
