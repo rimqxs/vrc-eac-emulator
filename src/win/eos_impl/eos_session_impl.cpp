@@ -1,19 +1,17 @@
-#include "common/eos/eos_api.h"
-#include "common/eos/eos_login_types.h"
+#include <thread>
+
+#include "../client.h"
 #include "common/api/requests/login_request.h"
 #include "common/api/requests/login_status_request.h"
 #include "common/api/response/login_response.h"
 #include "common/api/response/login_status_response.h"
+#include "common/eos/eos_api.h"
+#include "common/eos/eos_login_types.h"
 #include "common/protocol/packet_factory.h"
 #include "common/utils.h"
 
-#include <thread>
-
-#include "../client.h"
-
-
 void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void* client_data, std::shared_ptr<login_response> response) {
-	utils::sleep(400); // delay
+	utils::sleep(400);	// delay
 
 	EOS_Connect_LoginCallbackInfo info{};
 	info.ResultCode = response->result_code;
@@ -24,7 +22,8 @@ void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void*
 	PLOGD.printf("Logged in successfully: user_id=%d", info.LocalUserId);
 }
 
-EOS_DECLARE_FUNC(void) DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Connect_LoginOptions* options, void* client_data, const EOS_Connect_OnLoginCallback completion_delegate) {
+EOS_DECLARE_FUNC(void)
+DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Connect_LoginOptions* options, void* client_data, const EOS_Connect_OnLoginCallback completion_delegate) {
 	auto request = std::make_shared<login_request>();
 	request->api_version = options->ApiVersion;
 
@@ -47,7 +46,8 @@ EOS_DECLARE_FUNC(void) DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Con
 	std::thread(login_callback, completion_delegate, client_data, response).detach();
 }
 
-EOS_DECLARE_FUNC(EOS_ELoginStatus) DummyEOS_Connect_GetLoginStatus(EOS_HConnect Handle, EOS_ProductUserId LocalUserId) {
+EOS_DECLARE_FUNC(EOS_ELoginStatus)
+DummyEOS_Connect_GetLoginStatus(EOS_HConnect Handle, EOS_ProductUserId LocalUserId) {
 	auto request = std::make_shared<login_status_request>();
 	request->user_id = LocalUserId;
 

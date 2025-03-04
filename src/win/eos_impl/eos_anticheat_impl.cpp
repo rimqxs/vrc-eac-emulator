@@ -1,14 +1,13 @@
+#include "../client.h"
+#include "base64.hpp"
 #include "common/eos/eos_anticheat_types.h"
 #include "common/eos/eos_api.h"
 #include "common/protocol/packets/begin_session_packet.h"
 #include "common/protocol/packets/end_session_packet.h"
 #include "common/protocol/packets/receive_message_packet.h"
 
-#include "base64.hpp"
-
-#include "../client.h"
-
-EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_BeginSessionOptions* options) {
+EOS_DECLARE_FUNC(EOS_EResult)
+DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_BeginSessionOptions* options) {
 	PLOGI.printf("Beginning session with mode: %d", options->Mode);
 	auto packet = std::make_shared<begin_session_packet>();
 	packet->api_version = options->ApiVersion;
@@ -19,7 +18,8 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiChe
 	return EOS_Success;
 }
 
-EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_EndSessionOptions* options) {
+EOS_DECLARE_FUNC(EOS_EResult)
+DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_EndSessionOptions* options) {
 	PLOGI.printf("Ending session");
 	auto packet = std::make_shared<end_session_packet>();
 	packet->options.ApiVersion = options->ApiVersion;
@@ -28,7 +28,8 @@ EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheat
 	return EOS_Success;
 }
 
-EOS_DECLARE_FUNC(EOS_EResult) DummyEOS_AntiCheatClient_ReceiveMessageFromServer(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_ReceiveMessageFromServerOptions* options) {
+EOS_DECLARE_FUNC(EOS_EResult)
+DummyEOS_AntiCheatClient_ReceiveMessageFromServer(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_ReceiveMessageFromServerOptions* options) {
 	// encode message data
 	std::vector<char> message_bytes;
 	for (int i = 0; i < options->DataLengthBytes; i++) {

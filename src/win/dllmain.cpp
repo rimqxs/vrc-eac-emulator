@@ -1,11 +1,9 @@
 #include <Windows.h>
-
 #include <plog/Log.h>
 
 #include "client.h"
-
-#include "common/utils.h"
 #include "common/constants.h"
+#include "common/utils.h"
 
 void init() {
 	utils::init_logger();

@@ -12,8 +12,9 @@ struct notify_message_to_server_callback {
 
 class client_packet_processor {
 	static inline std::vector<notify_message_to_server_callback> notify_message_to_server_callbacks;
-public:
-    static void handle(std::shared_ptr<packet> packet);
+
+   public:
+	static void handle(std::shared_ptr<packet> packet);
 
 	static void add_notify_message_to_server(notify_message_to_server_callback callback);
 };
