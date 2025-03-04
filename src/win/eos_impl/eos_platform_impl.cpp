@@ -1,10 +1,10 @@
+#include "../client.h"
 #include "common/eos/eos_api.h"
 #include "common/eos/eos_platform_types.h"
 #include "common/protocol/packets/create_platform_packet.h"
 
-#include "../client.h"
-
-EOS_DECLARE_FUNC(EOS_HPlatform) DummyEOS_Platform_Create(EOS_Platform_Options* options) {
+EOS_DECLARE_FUNC(EOS_HPlatform)
+DummyEOS_Platform_Create(EOS_Platform_Options* options) {
 	auto packet = std::make_shared<create_platform_packet>();
 	packet->api_version = options->ApiVersion;
 	packet->product_id = nullable_string(options->ProductId);
@@ -33,18 +33,21 @@ EOS_DECLARE_FUNC(EOS_HPlatform) DummyEOS_Platform_Create(EOS_Platform_Options* o
 
 	client::send_packet(packet);
 
-    return 0x28B857C4A60;
+	return 0x28B857C4A60;
 }
 
-EOS_DECLARE_FUNC(void) DummyEOS_Platform_Tick(EOS_HPlatform handle) {
+EOS_DECLARE_FUNC(void)
+DummyEOS_Platform_Tick(EOS_HPlatform handle) {
 }
 
-EOS_DECLARE_FUNC(EOS_HConnect) DummyEOS_Platform_GetConnectInterface(EOS_HPlatform handle) {
-    PLOG_INFO.printf("EOS_Platform_GetConnectInterface called");
-    return 0x30A129C4A60;
+EOS_DECLARE_FUNC(EOS_HConnect)
+DummyEOS_Platform_GetConnectInterface(EOS_HPlatform handle) {
+	PLOG_INFO.printf("EOS_Platform_GetConnectInterface called");
+	return 0x30A129C4A60;
 }
 
-EOS_DECLARE_FUNC(EOS_HAntiCheatClient) DummyEOS_Platform_GetAntiCheatClientInterface(EOS_HPlatform handle) {
-    PLOG_INFO.printf("EOS_Platform_GetAntiCheatClientInterface called");
-    return 0x12B139C4A40;
+EOS_DECLARE_FUNC(EOS_HAntiCheatClient)
+DummyEOS_Platform_GetAntiCheatClientInterface(EOS_HPlatform handle) {
+	PLOG_INFO.printf("EOS_Platform_GetAntiCheatClientInterface called");
+	return 0x12B139C4A40;
 }
