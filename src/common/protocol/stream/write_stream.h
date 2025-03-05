@@ -30,15 +30,10 @@ public:
 
     	write_as<char>(1); // is valid
     	short len = strlen(string.c_str());
-    	write_as<unsigned short>(len);
+    	write_as<int>(len);
     	if (len == 0) {
     		return;
     	}
-
-    	if (len > USHRT_MAX) {
-		    PLOGF.printf("Max len allowed for string oversized");
-	    	return;
-	    }
 
     	write(string.c_str(), string.length());
     }

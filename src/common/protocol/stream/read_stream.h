@@ -48,8 +48,8 @@ public:
     		return {};
     	}
 
-		auto length = read_as<unsigned short>();
-    	if (length < 0) {
+		auto length = read_as<int>();
+    	if (length <= 0) {
     		return nullable_string("");
     	}
     	void* start = read(length);
