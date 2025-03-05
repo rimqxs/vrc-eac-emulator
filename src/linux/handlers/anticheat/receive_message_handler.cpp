@@ -13,7 +13,7 @@ void receive_message_handler::handle(std::shared_ptr<packet> packet) {
 
 	auto decoded = base64::decode_into<std::vector<char>>(receive_message->base64_message.c_str());
 	if (decoded.size() != receive_message->data_length_bytes) {
-		PLOGE.printf("Decoded message size does not match message data size");
+		PLOGE.printf("Decoded message size does not match message data size: %d != %d", decoded.size(), receive_message->data_length_bytes);
 		return;
 	}
 

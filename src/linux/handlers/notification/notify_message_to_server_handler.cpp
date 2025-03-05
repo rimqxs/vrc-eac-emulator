@@ -9,13 +9,11 @@
 #include "../../servers/socket_server.h"
 
 void notify_message_to_server_callback(const EOS_AntiCheatClient_OnMessageToServerCallbackInfo* data) {
-	// encode message data
 	std::vector<char> message_bytes;
 	for (int i = 0; i < data->MessageDataSizeBytes; i++) {
 		message_bytes.push_back(static_cast<const char*>(data->MessageData)[i]);
 	}
 	auto message_base64 = base64::encode_into<std::string>(message_bytes.begin(), message_bytes.end());
-	PLOGD.printf("encoded message: %s", message_base64.c_str());
 
 	auto packet = std::make_shared<notify_message_to_server_packet>();
 	packet->require_bind = false;
