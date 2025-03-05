@@ -22,5 +22,4 @@ void receive_message_handler::handle(std::shared_ptr<packet> packet) {
 	options.Data = decoded.data();
 	options.DataLengthBytes = receive_message->data_length_bytes;
 	eos_anticheat::receive_message_from_server(anticheat_interface, options);
-	PLOGD.printf("receive_message_handler handled");
 }
