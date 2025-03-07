@@ -104,7 +104,6 @@ int socket::accept(SOCKET socket, SOCKET* clientSocketOutput) {
 }
 
 int socket::connect(const char* ipAddress, unsigned short port, SOCKET* socketOutput) {
-    // Create a SOCKET for connecting to server
     SOCKET connectSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (connectSocket == INVALID_SOCKET) {
         PLOGE.printf("socket function failed with error: %ld", WSAGetLastError());
@@ -112,13 +111,11 @@ int socket::connect(const char* ipAddress, unsigned short port, SOCKET* socketOu
         return -1;
     }
 
-    // Resolve the server address and port
     sockaddr_in clientService{};
     clientService.sin_family = AF_INET;
     clientService.sin_addr.s_addr = inet_addr(ipAddress);
     clientService.sin_port = htons(port);
 
-    // Connect to the server
     int result = ::connect(connectSocket, reinterpret_cast<SOCKADDR*>(&clientService), sizeof(clientService));
     if (result == SOCKET_ERROR) {
         PLOGE.printf("Connecting to the server failed with error: %ld", WSAGetLastError());
