@@ -20,17 +20,15 @@ std::vector<std::shared_ptr<packet>> queued_packet;
 
 void client::receive_loopback() {
 	bool running = true;
-	char buf[DEFAULT_BUFLEN];
-	int buf_len = DEFAULT_BUFLEN;
 	while (running) {
-		int received_len = recv(socket_, buf, buf_len, 0);
-		if (received_len <= 0) {
+		std::vector<char> received_buffer = socket::recv(socket_);
+		if (received_buffer.size() <= 0) {
 			PLOGW.printf("Connection closed");
 			running = false;
 			continue;
 		}
 
-		read_stream stream(buf, received_len);
+		read_stream stream(received_buffer.data(), received_buffer.size());
 		while (stream.bytes_remaining() > 0) {
 			auto packet = packet_codec::decode(stream);
 			if (packet == nullptr) {

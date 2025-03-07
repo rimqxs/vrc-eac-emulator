@@ -9,14 +9,39 @@ int socket::init() {
 }
 
 int socket::send(SOCKET socket, const void* buf, const int len) {
-    return ::send(socket, static_cast<const char*>(buf), len, 0);
+	::send(socket, reinterpret_cast<const char*>(&len), sizeof(int), 0);
+	return ::send(socket, static_cast<const char*>(buf), len, 0);
+}
+std::vector<char> socket::recv(SOCKET socket) {
+	char payload_buf[4];
+	int bytes_received = ::recv(socket, payload_buf, 4, 0);
+	if (bytes_received < 4) {
+		PLOGF.printf("Invalid data retrieved");
+		return {};
+	}
+
+	int data_len = *reinterpret_cast<int*>(payload_buf);
+	char* data_buf = static_cast<char*>(malloc(data_len));
+	if (data_buf == nullptr) {
+		PLOGF.printf("Memory allocation error");
+		return {};
+	}
+	bytes_received = ::recv(socket, data_buf, data_len, 0);
+	PLOGD.printf("Received %d bytes (%d bytes required)", data_len, bytes_received);
+	if (data_len != bytes_received) {
+		MessageBoxA(NULL, "Error", "Invalid data detected!\nPlease contact this error to author of the emulator!", 1);
+	}
+
+	std::vector<char> result;
+	result.insert(result.begin(), data_buf, data_buf + data_len);
+	free(data_buf);
+
+	return result;
 }
 
 void socket::close(SOCKET socket) {
     closesocket(socket);
 }
-
-/////////////// Server ///////////////
 
 int socket::listen(unsigned short port, SOCKET* socketOutput, addrinfo** addrInfoOutput) {
     // Resolve the server address and port
@@ -77,8 +102,6 @@ int socket::accept(SOCKET socket, SOCKET* clientSocketOutput) {
 
     return 0;
 }
-
-/////////////// Client ///////////////
 
 int socket::connect(const char* ipAddress, unsigned short port, SOCKET* socketOutput) {
     // Create a SOCKET for connecting to server

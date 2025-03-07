@@ -10,4 +10,9 @@ public:
     static void send_packet(const std::shared_ptr<packet>& packet);
 
 	static void tick();
+
+private:
+	static void performSend();
+
+	static void performReceive();
 };
