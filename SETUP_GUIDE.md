@@ -114,7 +114,7 @@ then select 'Select the default wineprefix' and click 'OK'
 Then please follow the steps below.
 
 1. Select 'Run winecfg'
-2. Go to 'Libraries' tab and add `version` and set it to `native` and click 'OK'
+2. Go to 'Libraries' tab and add `version` and set it to `native, builtin` and click 'OK'
 3. Download [Runtimes All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/) and extract it
 4. Select 'Run Uninstaller' (If there is not protontricks window, please run it again)
 5. Click 'Install' and find .bat file from the folder you extracted and click 'OK'
