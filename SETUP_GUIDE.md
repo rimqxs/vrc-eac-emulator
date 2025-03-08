@@ -1,4 +1,4 @@
-# Add on me discord if you encountered any problem of the emulator: lpcvoid
+# Add me on discord if you encountered any problem of the emulator: lpcvoid
 
 # 1. Introduction
 
