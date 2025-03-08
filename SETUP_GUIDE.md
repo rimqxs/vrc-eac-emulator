@@ -129,3 +129,5 @@ Just copy the `EOSSDK-Win64-Shipping.dll` you built to "VRChat\VRChat_Data\Plugi
 And you are ready to go! 🎉
 
 Launch “VRChat.exe” directly on Windows or from Steam on Linux
+
+And give a star this project if you get helped by this project 👻
