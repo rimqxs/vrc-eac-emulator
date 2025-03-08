@@ -1,3 +1,5 @@
+# Add on me discord if you encountered any problem of the emulator: lpcvoid
+
 # 1. Introduction
 
 You will need a software can host a virtual machine to run linux side of the this project.
