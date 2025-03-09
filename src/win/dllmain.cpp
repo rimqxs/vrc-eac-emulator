@@ -6,9 +6,30 @@
 #include "common/utils.h"
 
 void init() {
-	utils::init_logger();
+	utils::init_logger(true);
 	PLOGI.printf("Console Initialized");
 
+	std::optional<std::string> config = utils::read_file("config.json");
+	if (!config.has_value()) {
+		nlohmann::json json;
+		nlohmann::json ports_obj;
+		json["ip"] = "192.168.XXX.XXX";
+		ports_obj["tcp"] = 7777;
+		ports_obj["http"] = 7778;
+		json["ports"] = ports_obj;
+		utils::write_file("config.json", json.dump(4));
+
+		printf("\n\r\n\r");
+		printf("+========================================================+\n\r");
+		printf("|        Configuration file has been generated!          |\n\r");
+		printf("| Edit the config.json file and restart the application. |\n\r");
+		printf("+========================================================+\n\r");
+		system("pause");
+		exit(1);
+	}
+
+	nlohmann::json json = nlohmann::json::parse(config.value());
+	client::initialize(json["ip"], json["ports"]["tcp"], json["ports"]["http"]);
 	client::connect();
 }
 

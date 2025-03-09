@@ -50,4 +50,6 @@ add_library(version SHARED
         handlers/anticheat/end_session_handler.cpp
         handlers/anticheat/end_session_handler.h
         dllmain.cpp
+        bootstrapper.cpp
+        bootstrapper.h
 )

@@ -5,13 +5,18 @@
 #include "common/protocol/packet.h"
 
 class client {
+	static inline std::string ip;
+	static inline int tcp_port, http_port;
+
 	static void receive_loopback();
 
 	static void send_loopback();
 
 	static std::shared_ptr<response> _request(std::shared_ptr<request> const& request);
 
-   public:
+public:
+	static void initialize(const std::string& ip, int tcp_port, int http_port);
+
 	static void connect();
 
 	static void send_packet(const std::shared_ptr<packet>& packet);

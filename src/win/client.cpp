@@ -65,14 +65,20 @@ void client::send_loopback() {
 	}
 }
 
+void client::initialize(const std::string& ip, int tcp_port, int http_port) {
+	client::ip = ip;
+	client::tcp_port = tcp_port;
+	client::http_port = http_port;
+}
+
 void client::connect() {
 	if (socket::init() != NULL) {
 		PLOGE.printf("socks::init failed");
 		return;
 	}
 
-	PLOGD.printf("Connecting to the server %s:%d!", HOST_IP_ADDR, HOST_SOCKET_PORT);
-	while (socket::connect(HOST_IP_ADDR, HOST_SOCKET_PORT, &socket_)) {
+	PLOGD.printf("Connecting to the server %s:%d!", ip.c_str(), tcp_port);
+	while (socket::connect(ip.c_str(), tcp_port, &socket_)) {
 		PLOGW.printf("socks::connect failed, retrying after 5 seconds...");
 		Sleep(5000);
 	}
@@ -81,7 +87,6 @@ void client::connect() {
 	std::thread(send_loopback).detach();
 	std::thread(receive_loopback).detach();
 
-	// Send handshake packet
 	auto packet = std::make_shared<handshake_packet>();
 	packet->timestamp = std::time(nullptr);
 	send_packet(packet);
@@ -94,7 +99,7 @@ void client::send_packet(const std::shared_ptr<packet>& packet) {
 }
 
 std::shared_ptr<response> client::_request(std::shared_ptr<::request> const& request) {
-	httplib::Client client(std::format("http://{}:{}", HOST_IP_ADDR, HOST_HTTP_PORT));
+	httplib::Client client(std::format("http://{}:{}", ip, http_port));
 
 	nlohmann::json serialized;
 	request->serialize(serialized);

@@ -14,18 +14,18 @@ SOCKET clientSocket;
 std::mutex send_mutex, receive_mutex;
 std::vector<std::shared_ptr<packet> > send_queued_packets, receive_queued_packets;
 
-void socket_server::launch() {
+void socket_server::launch(int port) {
 	if (socket::init() != NULL) {
 		PLOGE.printf("socks::init failed");
 		return;
 	}
 	SOCKET socket_;
 	addrinfo* info;
-	if (socket::listen(HOST_SOCKET_PORT, &socket_, &info) != NULL) {
+	if (socket::listen(port, &socket_, &info) != NULL) {
 		PLOGE.printf("Server setup failed");
 		return;
 	}
-	PLOGI.printf("Server started on localhost:%d! Waiting for connection...", HOST_SOCKET_PORT);
+	PLOGI.printf("Server started on localhost:%d! Waiting for connection...", port);
 	if (socket::accept(socket_, &clientSocket) != NULL) {
 		PLOGE.printf("Accepting client connection failed");
 		return;
