@@ -5,7 +5,7 @@
 class socket_server {
     static void receive_loopback();
 public:
-    static void launch();
+    static void launch(int port);
 
     static void send_packet(const std::shared_ptr<packet>& packet);
 

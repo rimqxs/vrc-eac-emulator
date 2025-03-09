@@ -33,9 +33,10 @@ void http_server::init() {
 		res.status = 200;
 	});
 
-	server.listen("0.0.0.0", HOST_HTTP_PORT);
+	server.listen("0.0.0.0", port);
 }
 
-void http_server::run() {
+void http_server::run(int port) {
+	http_server::port = port;
 	std::thread(init).detach();
 }
