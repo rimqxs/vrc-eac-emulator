@@ -1,8 +1,9 @@
 #include "http_server.h"
 
-#include <httplib.h>
 #include <common/api/session_factory.h>
 #include <common/constants.h>
+#include <httplib.h>
+
 #include <json.hpp>
 
 #include "../api/api_handler_registry.h"
@@ -15,7 +16,7 @@ void http_server::init() {
 		auto request = session_factory::create_request(json["id"]);
 		if (request == nullptr) {
 			PLOGF.printf("Invalid request id: %s", json["id"].get<std::string>().c_str());
-			res.status = 500; // Internal server error
+			res.status = 500;  // Internal server error
 			return;
 		}
 		request->deserialize(json);

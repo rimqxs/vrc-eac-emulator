@@ -30,7 +30,6 @@ DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheatClient handle, const EOS_AntiC
 
 EOS_DECLARE_FUNC(EOS_EResult)
 DummyEOS_AntiCheatClient_ReceiveMessageFromServer(EOS_HAntiCheatClient handle, const EOS_AntiCheatClient_ReceiveMessageFromServerOptions* options) {
-	// encode message data
 	std::vector<char> message_bytes;
 	for (int i = 0; i < options->DataLengthBytes; i++) {
 		message_bytes.push_back(static_cast<const char*>(options->Data)[i]);

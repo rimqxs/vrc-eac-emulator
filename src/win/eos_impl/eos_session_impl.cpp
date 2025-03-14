@@ -11,7 +11,7 @@
 #include "common/utils.h"
 
 void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void* client_data, std::shared_ptr<login_response> response) {
-	utils::sleep(400);	// delay
+	utils::sleep(400);
 
 	EOS_Connect_LoginCallbackInfo info{};
 	info.ResultCode = response->result_code;

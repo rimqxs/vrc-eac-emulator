@@ -70,7 +70,6 @@ DummyEOS_ProductUserId_ToString(EOS_ProductUserId account_id, char* out_buffer, 
 	return response->result;
 }
 
-// IDK what this function does, but it's called by gameassembly.dll
 EOS_DECLARE_FUNC(bool)
 DummyEOS_EResult_IsOperationComplete(EOS_EResult result) {
 	return true;

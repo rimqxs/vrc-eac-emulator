@@ -1,12 +1,10 @@
 #include "bootstrapper.h"
 
-#include <shlwapi.h>
-
 #include <MinHook.h>
-#include <plog/Log.h>
-#include <plog/Formatters/TxtFormatter.h>
-
 #include <common/constants.h>
+#include <plog/Formatters/TxtFormatter.h>
+#include <plog/Log.h>
+#include <shlwapi.h>
 
 #include "api/api_handler_registry.h"
 #include "eos/eos.h"
@@ -24,7 +22,7 @@ int bootstrapper::Dummy_WinMain() {
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
 	while (true) {
-		Sleep(1000 / 30); // emulate 30 fps
+		Sleep(1000 / 30);  // emulate 30 fps
 
 		socket_server::tick();
 		if (eos::is_eos_initialized() && eos_platform::is_platform_created()) {

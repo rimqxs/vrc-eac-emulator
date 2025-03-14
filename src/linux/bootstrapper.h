@@ -8,6 +8,6 @@ class bootstrapper {
 
 	static void hook_winmain();
 
-public:
+   public:
 	static void main(int tcp_port, int http_port);
 };

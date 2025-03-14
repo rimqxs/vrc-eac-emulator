@@ -4,6 +4,7 @@ class http_server {
 	static inline int port;
 
 	static void init();
-public:
+
+   public:
 	static void run(int port);
 };

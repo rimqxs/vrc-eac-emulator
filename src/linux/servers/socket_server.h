@@ -3,15 +3,16 @@
 #include <common/protocol/packet.h>
 
 class socket_server {
-    static void receive_loopback();
-public:
-    static void launch(int port);
+	static void receive_loopback();
 
-    static void send_packet(const std::shared_ptr<packet>& packet);
+   public:
+	static void launch(int port);
+
+	static void send_packet(const std::shared_ptr<packet>& packet);
 
 	static void tick();
 
-private:
+   private:
 	static void performSend();
 
 	static void performReceive();
