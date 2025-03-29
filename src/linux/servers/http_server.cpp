@@ -1,7 +1,6 @@
 #include "http_server.h"
 
 #include <common/api/session_factory.h>
-#include <common/constants.h>
 #include <httplib.h>
 
 #include <json.hpp>

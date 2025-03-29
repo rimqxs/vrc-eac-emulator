@@ -1,16 +1,18 @@
 #include "client.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
 #include <plog/Log.h>
 
 #include <future>
 
-#include "httplib.h"
-#include "client_packet_processor.h"
+#include "client_packet_handler.h"
 #include "common/api/session_factory.h"
-#include "common/constants.h"
 #include "common/protocol/packet_codec.h"
 #include "common/protocol/packets/handshake_packet.h"
 #include "common/socket.h"
+#include "httplib.h"
 
 SOCKET socket_;
 std::mutex mutex;
@@ -36,7 +38,7 @@ void client::receive_loopback() {
 				return;
 			}
 
-			client_packet_processor::handle(packet);
+			client_packet_handler::handle(packet);
 		}
 		stream.close();
 	}

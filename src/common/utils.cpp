@@ -10,7 +10,7 @@
 #include <fstream>
 #include <thread>
 
-void utils::init_logger(bool use_colored) {
+void utils::create_console() {
 	AllocConsole();
 
 	FILE* newStdout;
@@ -19,11 +19,13 @@ void utils::init_logger(bool use_colored) {
 	freopen_s(&newStdin, "CONIN$", "r", stdin);
 
 	SetConsoleTitleA("EAC Emulator");
+}
 
+void utils::init_logger(bool use_colored, plog::Severity severity) {
 	static plog::ConsoleAppender<plog::TxtFormatter> consoleAppender;
 	static plog::ColorConsoleAppender<plog::TxtFormatter> coloredConsoleAppender;
 	plog::IAppender* appender = use_colored ? &coloredConsoleAppender : &consoleAppender;
-	plog::init(plog::verbose, appender);
+	plog::init(severity, appender);
 }
 
 void utils::sleep(unsigned int ms) {

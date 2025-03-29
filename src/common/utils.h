@@ -1,11 +1,15 @@
 #pragma once
 
-#include <string>
+#include <plog/Severity.h>
+
 #include <optional>
+#include <string>
 
 class utils {
 public:
-	static void init_logger(bool use_colored);
+	static void create_console();
+
+	static void init_logger(bool use_colored, plog::Severity severity);
 
 	static void sleep(unsigned int ms);
 

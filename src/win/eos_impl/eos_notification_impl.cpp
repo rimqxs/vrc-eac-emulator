@@ -1,9 +1,8 @@
+#include "../client.h"
+#include "../client_packet_handler.h"
 #include "common/eos/eos_anticheat_types.h"
 #include "common/eos/eos_api.h"
 #include "common/protocol/packets/notify_message_to_server_packet.h"
-
-#include "../client.h"
-#include "../client_packet_processor.h"
 
 EOS_DECLARE_FUNC(EOS_NotificationId) DummyEOS_Connect_AddNotifyAuthExpiration(EOS_HConnect handle, void* options, void* clientData, void* notificationFn) {
     // TODO: impl handler
@@ -21,7 +20,7 @@ EOS_DECLARE_FUNC(EOS_NotificationId) DummyEOS_AntiCheatClient_AddNotifyMessageTo
 	callback.options = *options;
 	callback.client_data = clientData;
 	callback.notification_fn = notificationFn;
-	client_packet_processor::add_notify_message_to_server(callback);
+	client_packet_handler::add_notify_message_to_server(callback);
 
 	PLOGI.printf("EOS_AntiCheatClient_AddNotifyMessageToServer handled");;
 

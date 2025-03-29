@@ -16,13 +16,14 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 		return TRUE;
 	}
 
-	utils::init_logger(false);
-	PLOGI.printf("Console Initialized");
+	utils::create_console();
+	printf("Console Initialized\n");
 	std::optional<std::string> config = utils::read_file("config.json");
 	if (!config.has_value()) {
 		nlohmann::json json;
 		json["tcp"] = 7777;
 		json["http"] = 7778;
+		json["logger"] = true;
 		utils::write_file("config.json", json.dump(4));
 
 		printf("\n\r\n\r");
@@ -35,6 +36,8 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	}
 
 	nlohmann::json json = nlohmann::json::parse(config.value());
+	bool use_logger = json["logger"];
+	utils::init_logger(false, use_logger ? plog::verbose : plog::none);
 	bootstrapper::main(json["tcp"], json["http"]);
 
 	return TRUE;

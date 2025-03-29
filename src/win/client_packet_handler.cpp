@@ -1,11 +1,10 @@
-#include "client_packet_processor.h"
-
 #include "base64.hpp"
+#include "client_packet_handler.h"
 #include "common/eos/eos_anticheat_types.h"
 #include "common/protocol/packets/handshake_packet.h"
 #include "common/protocol/packets/notify_message_to_server_packet.h"
 
-void client_packet_processor::handle(std::shared_ptr<packet> packet) {
+void client_packet_handler::handle(std::shared_ptr<packet> packet) {
 	if (packet->get_id() == HANDSHAKE_PACKET_ID) {
 		PLOGD.printf("Session successfully created: timestamp=%lld",
 					 std::static_pointer_cast<handshake_packet>(packet)->timestamp);
@@ -27,6 +26,6 @@ void client_packet_processor::handle(std::shared_ptr<packet> packet) {
 	}
 }
 
-void client_packet_processor::add_notify_message_to_server(notify_message_to_server_callback callback) {
+void client_packet_handler::add_notify_message_to_server(notify_message_to_server_callback callback) {
 	notify_message_to_server_callbacks.push_back(callback);
 }

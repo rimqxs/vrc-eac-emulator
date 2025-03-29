@@ -6,8 +6,8 @@
 #include "common/utils.h"
 
 void init() {
-	utils::init_logger(true);
-	PLOGI.printf("Console Initialized");
+	utils::create_console();
+	printf("Console Initialized\n");
 
 	std::optional<std::string> config = utils::read_file("config.json");
 	if (!config.has_value()) {
@@ -17,6 +17,7 @@ void init() {
 		ports_obj["tcp"] = 7777;
 		ports_obj["http"] = 7778;
 		json["ports"] = ports_obj;
+		json["logger"] = true;
 		utils::write_file("config.json", json.dump(4));
 
 		printf("\n\r\n\r");
@@ -29,6 +30,8 @@ void init() {
 	}
 
 	nlohmann::json json = nlohmann::json::parse(config.value());
+	bool use_logger = json["logger"];
+	utils::init_logger(true, use_logger ? plog::verbose : plog::none);
 	client::initialize(json["ip"], json["ports"]["tcp"], json["ports"]["http"]);
 	client::connect();
 }

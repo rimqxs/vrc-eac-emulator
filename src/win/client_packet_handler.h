@@ -10,7 +10,7 @@ struct notify_message_to_server_callback {
 	EOS_AntiCheatClient_OnMessageToServerCallback notification_fn;
 };
 
-class client_packet_processor {
+class client_packet_handler {
 	static inline std::vector<notify_message_to_server_callback> notify_message_to_server_callbacks;
 
    public:
