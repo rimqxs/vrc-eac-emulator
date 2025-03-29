@@ -1,5 +1,8 @@
 #include "http_server.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
 #include <common/api/session_factory.h>
 #include <httplib.h>
 
