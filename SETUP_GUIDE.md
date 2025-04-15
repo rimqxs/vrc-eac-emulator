@@ -111,7 +111,3 @@ Please edit the host property to your local address of linux
 And you are ready to go! 🎉
 
 Launch “VRChat.exe” directly on Windows or from Steam on Linux
-
-And give a star this project if you get helped by this project 👻
-
-Also, Check out this useful tool for the emulator: https://github.com/TMatheo/EOSLauncher
