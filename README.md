@@ -2,6 +2,9 @@
 
 Disable EasyAntiCheat completely on the Windows side by communicating between VRChat processes between Windows and Linux!
 
+Join our community server:
+https://discord.gg/yRUfEwBuYv
+
 > [!IMPORTANT]
 > This project is for educational purposes only. I am not responsible for any damage caused by this project.
 
