@@ -1,0 +1,2 @@
+Diagnostics:
+  Suppress: [c++17-extensions, microsoft-cast]

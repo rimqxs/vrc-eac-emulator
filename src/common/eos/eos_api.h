@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Windows.h>
+#include <cstdint>
 
 #define EOS_Success 0
 #define EOS_NS_Online 2
@@ -21,4 +21,4 @@ typedef uintptr_t EOS_EAntiCheatClientMode;
 #define EOS_EXTERN_C extern "C"
 #define EOS_CALL __stdcall
 #define EOS_DECLARE_FUNC(ret_type) EOS_EXTERN_C ret_type EOS_CALL
-#define EOS_DECLARE_CALLBACK(CallbackName, ...) EOS_EXTERN_C typedef void (EOS_CALL* CallbackName)(__VA_ARGS__)
+#define EOS_DECLARE_CALLBACK(CallbackName, ...) EOS_EXTERN_C typedef void(EOS_CALL * CallbackName)(__VA_ARGS__)

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <windows.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 
 class eos_utils {
 public:

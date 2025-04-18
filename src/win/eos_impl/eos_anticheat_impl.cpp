@@ -1,4 +1,4 @@
-#include "../client.h"
+#include "../emulator_client.h"
 #include "base64.hpp"
 #include "common/eos/eos_anticheat_types.h"
 #include "common/eos/eos_api.h"
@@ -13,7 +13,7 @@ DummyEOS_AntiCheatClient_BeginSession(EOS_HAntiCheatClient handle, const EOS_Ant
 	packet->api_version = options->ApiVersion;
 	packet->user_id = options->LocalUserId;
 	packet->mode = options->Mode;
-	client::send_packet(packet);
+	emulator_client::get_instance()->send_packet(packet);
 
 	return EOS_Success;
 }
@@ -23,7 +23,7 @@ DummyEOS_AntiCheatClient_EndSession(EOS_HAntiCheatClient handle, const EOS_AntiC
 	PLOGI.printf("Ending session");
 	auto packet = std::make_shared<end_session_packet>();
 	packet->options.ApiVersion = options->ApiVersion;
-	client::send_packet(packet);
+	emulator_client::get_instance()->send_packet(packet);
 
 	return EOS_Success;
 }
@@ -40,7 +40,7 @@ DummyEOS_AntiCheatClient_ReceiveMessageFromServer(EOS_HAntiCheatClient handle, c
 	packet->api_version = options->ApiVersion;
 	packet->base64_message = nullable_string(message_base64);
 	packet->data_length_bytes = options->DataLengthBytes;
-	client::send_packet(packet);
+	emulator_client::get_instance()->send_packet(packet);
 
 	return EOS_Success;
 }

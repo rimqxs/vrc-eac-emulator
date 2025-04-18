@@ -3,3 +3,6 @@ UseTab: Always
 IndentWidth: 4
 TabWidth: 4
 ColumnLimit: 0
+AccessModifierOffset: -4
+LambdaBodyIndentation: OuterScope
+InsertNewlineAtEOF: true

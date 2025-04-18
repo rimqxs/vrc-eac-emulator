@@ -1,4 +1,4 @@
-#include "../client.h"
+#include "../emulator_client.h"
 #include "common/eos/eos_api.h"
 #include "common/eos/eos_platform_types.h"
 #include "common/protocol/packets/create_platform_packet.h"
@@ -30,9 +30,7 @@ DummyEOS_Platform_Create(EOS_Platform_Options* options) {
 	if (options->TaskNetworkTimeoutSeconds != nullptr) {
 		packet->task_network_timeout_seconds = *options->TaskNetworkTimeoutSeconds;
 	}
-
-	client::send_packet(packet);
-
+	emulator_client::get_instance()->send_packet(packet);
 	return 0x28B857C4A60;
 }
 

@@ -1,6 +1,6 @@
 #include <future>
 
-#include "../client.h"
+#include "../emulator_client.h"
 #include "common/api/requests/id2string_request.h"
 #include "common/api/response/id2string_response.h"
 #include "common/eos/eos_api.h"
@@ -19,7 +19,7 @@ DummyEOS_Initialize(EOS_InitializeOptions* options) {
 	packet->product_name = nullable_string(options->ProductName);
 	packet->product_version = nullable_string(options->ProductVersion);
 
-	client::send_packet(packet);
+	emulator_client::get_instance()->send_packet(packet);
 	PLOGI.printf("EOS_Initialize handled");
 
 	return EOS_Success;
@@ -57,7 +57,7 @@ DummyEOS_ProductUserId_ToString(EOS_ProductUserId account_id, char* out_buffer, 
 	auto request = std::make_shared<id2string_request>();
 	request->user_id = account_id;
 
-	auto response = client::request<id2string_response>(request);
+	auto response = emulator_client::get_instance()->send_request<id2string_response>(request);
 	auto buffer = response->buffer;
 	auto buffer_size = response->buffer_size;
 	if (buffer != nullptr) {

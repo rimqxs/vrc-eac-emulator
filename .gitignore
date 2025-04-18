@@ -53,3 +53,5 @@ cmake-build-*
 # Vs
 out
 .vs
+
+.cache

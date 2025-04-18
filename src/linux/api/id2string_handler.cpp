@@ -11,9 +11,9 @@
 std::shared_ptr<response> id2string_handler::handle(std::shared_ptr<request> request) {
 	auto request_id2string = std::static_pointer_cast<id2string_request>(request);
 
-	char buffer[EOS_PRODUCTUSERID_MAX_LENGTH+1];
+	char buffer[EOS_PRODUCTUSERID_MAX_LENGTH + 1];
 	int32_t buffer_length = sizeof(buffer);
-	ZeroMemory(buffer, sizeof(buffer));
+	memset(buffer, 0, sizeof(buffer));
 	EOS_EResult result = eos::product_user_id_to_string(request_id2string->user_id, buffer, &buffer_length);
 	if (result != EOS_Success) {
 		buffer_length = 0;

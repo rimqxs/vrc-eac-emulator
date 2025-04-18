@@ -1,18 +1,16 @@
 #include <thread>
 
-#include "../client.h"
+#include "../emulator_client.h"
 #include "common/api/requests/login_request.h"
 #include "common/api/requests/login_status_request.h"
 #include "common/api/response/login_response.h"
 #include "common/api/response/login_status_response.h"
 #include "common/eos/eos_api.h"
 #include "common/eos/eos_login_types.h"
-#include "common/protocol/packet_factory.h"
 #include "common/utils.h"
 
 void login_callback(const EOS_Connect_OnLoginCallback completion_delegate, void* client_data, std::shared_ptr<login_response> response) {
 	utils::sleep(400);
-
 	EOS_Connect_LoginCallbackInfo info{};
 	info.ResultCode = response->result_code;
 	info.ClientData = client_data;
@@ -42,7 +40,7 @@ DummyEOS_Connect_Login(EOS_HConnect handle, const EOS_Connect_LoginOptions* opti
 	}
 
 	PLOGI.printf("Requesting login to proxy");
-	auto response = client::request<login_response>(request);
+	auto response = emulator_client::get_instance()->send_request<login_response>(request);
 	std::thread(login_callback, completion_delegate, client_data, response).detach();
 }
 
@@ -51,6 +49,6 @@ DummyEOS_Connect_GetLoginStatus(EOS_HConnect Handle, EOS_ProductUserId LocalUser
 	auto request = std::make_shared<login_status_request>();
 	request->user_id = LocalUserId;
 
-	auto response = client::request<login_status_response>(request);
+	auto response = emulator_client::get_instance()->send_request<login_status_response>(request);
 	return response->status;
 }

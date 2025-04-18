@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(dependencies)
+link_libraries(minhook)
+include_directories(${plog_SOURCE_DIR}/include)
 
 file(GLOB_RECURSE includes_deps
         "includes/*.hpp"

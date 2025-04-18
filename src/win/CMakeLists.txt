@@ -3,10 +3,9 @@ project(EOSSDK-Win64-Shipping)
 
 add_library(EOSSDK-Win64-Shipping SHARED
         ${includes_deps}
-
         dllmain.cpp
-        client.cpp
-        client.h
+        emulator_client.cpp
+        emulator_client.h
         exports.def
 
         eos_impl/eos_general_impl.cpp
@@ -15,8 +14,14 @@ add_library(EOSSDK-Win64-Shipping SHARED
         eos_impl/eos_session_impl.cpp
         eos_impl/eos_anticheat_impl.cpp
         
-        client_packet_handler.cpp
-        client_packet_handler.h
+        handler/handlers/client_packet_handler.cpp
+        handler/handlers/client_packet_handler.h
+        handler/packet_handler.h
+        handler/handler_registry.cpp
+        handler/handler_registry.h
+
+        sock/packet_sender.cpp
+        sock/packet_sender.h
+        sock/sock_client.cpp
+        sock/sock_client.h
 )
-target_link_libraries(EOSSDK-Win64-Shipping minhook)
-target_include_directories(EOSSDK-Win64-Shipping PUBLIC ${plog_SOURCE_DIR}/include)

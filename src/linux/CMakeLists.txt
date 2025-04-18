@@ -47,6 +47,3 @@ add_library(version SHARED
         api/login_status_handler.cpp
         api/login_status_handler.h
 )
-
-target_link_libraries(EOSSDK-Win64-Shipping minhook)
-target_include_directories(EOSSDK-Win64-Shipping PUBLIC ${plog_SOURCE_DIR}/include)
