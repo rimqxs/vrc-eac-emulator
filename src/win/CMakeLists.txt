@@ -4,8 +4,6 @@ project(EOSSDK-Win64-Shipping)
 add_library(EOSSDK-Win64-Shipping SHARED
         ${includes_deps}
 
-        ../common/constants.h
-
         dllmain.cpp
         client.cpp
         client.h
