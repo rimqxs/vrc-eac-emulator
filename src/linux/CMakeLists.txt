@@ -4,19 +4,26 @@ project(version)
 add_library(version SHARED
         ${includes_deps}
         dllmain.cpp
-
+        bootstrapper.cpp
+        bootstrapper.h
+        exports.def
+        forwarding/exports.cpp
+        forwarding/forwarder.cpp
+        forwarding/forwarder.h
         servers/socket_server.cpp
         servers/socket_server.h
         servers/http_server.cpp
         servers/http_server.h
-
         eos/eos_logger.h
         eos/eos_platform.h
         eos/eos_platform.cpp
         eos/eos_utils.h
         eos/eos.cpp
         eos/eos.h
-
+        eos/eos_connect.cpp
+        eos/eos_connect.h
+        eos/eos_anticheat.cpp
+        eos/eos_anticheat.h
         handlers/handler_registry.h
         handlers/platform/create_platform_handler.cpp
         handlers/platform/create_platform_handler.h
@@ -24,23 +31,6 @@ add_library(version SHARED
         handlers/common/initialize_eos_handler.h
         handlers/common/handshake_packet_handler.cpp
         handlers/common/handshake_packet_handler.h
-
-        api/api_handler_registry.h
-        api/id2string_handler.cpp
-        api/id2string_handler.h
-        api/login_handler.cpp
-        api/login_handler.h
-
-        exports.def
-        forwarding/exports.cpp
-        forwarding/forwarder.cpp
-        forwarding/forwarder.h
-        api/login_status_handler.cpp
-        api/login_status_handler.h
-        eos/eos_connect.cpp
-        eos/eos_connect.h
-        eos/eos_anticheat.cpp
-        eos/eos_anticheat.h
         handlers/anticheat/begin_session_handler.cpp
         handlers/anticheat/begin_session_handler.h
         handlers/notification/notify_message_to_server_handler.cpp
@@ -49,7 +39,14 @@ add_library(version SHARED
         handlers/anticheat/receive_message_handler.h
         handlers/anticheat/end_session_handler.cpp
         handlers/anticheat/end_session_handler.h
-        dllmain.cpp
-        bootstrapper.cpp
-        bootstrapper.h
+        api/api_handler_registry.h
+        api/id2string_handler.cpp
+        api/id2string_handler.h
+        api/login_handler.cpp
+        api/login_handler.h
+        api/login_status_handler.cpp
+        api/login_status_handler.h
 )
+
+target_link_libraries(EOSSDK-Win64-Shipping minhook)
+target_include_directories(EOSSDK-Win64-Shipping PUBLIC ${plog_SOURCE_DIR}/include)
