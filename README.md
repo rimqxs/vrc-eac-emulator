@@ -1,9 +1,8 @@
 # EasyAntiCheat Emulator on VRChat
 
-Disable EasyAntiCheat completely on the Windows side by communicating between VRChat processes between Windows and Linux!
+Redirect all EAC communications required on Windows to Linux
 
-Join our community server:
-https://discord.gg/yRUfEwBuYv
+Join our community server: https://discord.gg/yRUfEwBuYv
 
 > [!IMPORTANT]
 > This project is for educational purposes only. I am not responsible for any damage caused by this project.
@@ -16,11 +15,11 @@ Starring this project motivates me to maintain and support this project, so plea
 
 ## How does it work?
 
-Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows, so that the fraud checks by their anticheat are completely disabled on the Windows side. It means windows can play the game with the EAC completely disabled!
+Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows.
 
 ## How to use
 
-This section is so huge, so I made a separate document for this. Please check [this document](./SETUP_GUIDE.md) for more information.
+Read [this document](./SETUP_GUIDE.md)
 
 ## Libraries used
 
