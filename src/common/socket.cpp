@@ -28,7 +28,7 @@ std::vector<char> socket::recv(SOCKET socket) {
 	bytes_received = ::recv(socket, data_buf, data_len, 0);
 	PLOGD.printf("Received %d bytes (%d bytes required)", data_len, bytes_received);
 	if (data_len != bytes_received) {
-		MessageBoxA(NULL, "Error", "Invalid data detected!\nPlease contact this error to author of the emulator!", 1);
+		MessageBoxA(NULL, "Invalid data detected!\nPlease contact this error to author of the emulator!", "Error", MB_OK | MB_ICONERROR);
 	}
 
 	std::vector<char> result;
