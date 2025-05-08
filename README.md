@@ -3,6 +3,9 @@ This project is currently broken, please download the requirements from our comm
 
 # EasyAntiCheat Emulator on VRChat
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/0liteyear/vrc-eac-emulator/blob/master/LICENSE)
+[![Discord](https://img.shields.io/discord/1361492536752865392)](https://discord.gg/yRUfEwBuYv)
+
 Redirect all EAC communications required on Windows to Linux
 
 Join our community server: https://discord.gg/yRUfEwBuYv
