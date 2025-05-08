@@ -1,3 +1,6 @@
+This project is currently broken, please download the requirements from our community server below to use!!!
+(Fix soon 😭)
+
 # EasyAntiCheat Emulator on VRChat
 
 Redirect all EAC communications required on Windows to Linux
