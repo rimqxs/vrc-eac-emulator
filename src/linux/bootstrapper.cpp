@@ -11,20 +11,20 @@
 #include "eos/eos_platform.h"
 #include "handlers/handler_registry.h"
 #include "servers/http_server.h"
-#include "servers/socket_server.h"
+#include "servers/websocket_server.h"
 
 int bootstrapper::Dummy_WinMain() {
 	handler_registry::init();
 	api_handler_registry::init();
 
-	socket_server::launch(tcp_port);
+	websocket_server::launch(tcp_port);
 	http_server::run(http_port);
 
 	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
 	while (true) {
 		Sleep(1000 / 30);  // emulate 30 fps
 
-		socket_server::tick();
+		websocket_server::tick();
 		if (eos::is_eos_initialized() && eos_platform::is_platform_created()) {
 			eos_platform::tick();
 		}

@@ -10,8 +10,8 @@ add_library(version SHARED
         forwarding/exports.cpp
         forwarding/forwarder.cpp
         forwarding/forwarder.h
-        servers/socket_server.cpp
-        servers/socket_server.h
+        servers/websocket_server.cpp
+        servers/websocket_server.h
         servers/http_server.cpp
         servers/http_server.h
         eos/eos_logger.h

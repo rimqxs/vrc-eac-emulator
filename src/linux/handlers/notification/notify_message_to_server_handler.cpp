@@ -1,12 +1,11 @@
 #include "notify_message_to_server_handler.h"
 
-#include "common/eos/eos_anticheat_types.h"
-#include "common/protocol/packets/notify_message_to_server_packet.h"
-#include "base64.hpp"
-
 #include "../../eos/eos_anticheat.h"
 #include "../../eos/eos_platform.h"
-#include "../../servers/socket_server.h"
+#include "../../servers/websocket_server.h"
+#include "base64.hpp"
+#include "common/eos/eos_anticheat_types.h"
+#include "common/protocol/packets/notify_message_to_server_packet.h"
 
 void notify_message_to_server_callback(const EOS_AntiCheatClient_OnMessageToServerCallbackInfo* data) {
 	std::vector<char> message_bytes;
@@ -19,7 +18,7 @@ void notify_message_to_server_callback(const EOS_AntiCheatClient_OnMessageToServ
 	packet->require_bind = false;
 	packet->base64_message_data = nullable_string(message_base64);
 	packet->message_data_size = data->MessageDataSizeBytes;
-	socket_server::send_packet(packet);
+	websocket_server::send_packet(packet);
 }
 
 void notify_message_to_server_handler::handle(std::shared_ptr<packet> packet) {
