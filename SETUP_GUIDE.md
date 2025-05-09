@@ -16,7 +16,7 @@ Please follow the steps below to setup your VM configuration.
 
 Open your VM settings and select `Network Adapter` tab and open `Advanced` section.
 
-and change the MAC address to like `00:0C:29:00:00:01`  (Do not use address starting with `00:50`!)
+and change the MAC address to like `00:0C:29:00:00:01`  (Avoid using address starting with `00:50`!)
 
 ## Avoid Virtaul-Machine detection from EAC
 
