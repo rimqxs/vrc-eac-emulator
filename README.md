@@ -25,7 +25,8 @@ Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLL
 
 ## How to use
 
-Read [this document](./SETUP_GUIDE.md)
+Basic Setup: [Use VMWare (Recommended for most people)](./SETUP_GUIDE.md)
+Advanced User Setup: [Use WSL](./SETUP_GUIDE_WSL.md)
 
 ## Libraries used
 
