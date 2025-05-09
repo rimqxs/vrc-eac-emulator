@@ -1,6 +1,3 @@
-This project is currently broken, please download the requirements from our community server below to use!!!
-(Fix soon 😭)
-
 # EasyAntiCheat Emulator on VRChat
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/0liteyear/vrc-eac-emulator/blob/master/LICENSE)
