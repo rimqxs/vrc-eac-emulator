@@ -29,7 +29,7 @@ Advanced User Setup: [Use WSL](./SETUP_GUIDE_WSL.md)
 
 - [MinHook](https://github.com/TsudaKageyu/minhook) - TsudaKageyu
 - [Plog](https://github.com/SergiusTheBest/plog) - Sergey Podobry
-- [cpp-httplib](https://github.com/yhirose/cpp-httplib) - yhirose
+- [libhv]([https://github.com/yhirose/cpp-httplib](https://github.com/ithewei/libhv)) - ithewei
 - [JSON for Modern C++](https://github.com/nlohmann/json) - Niels Lohmann
 - [base64](https://github.com/tobiaslocker/base64/tree/master) - Tobias Locker
 
