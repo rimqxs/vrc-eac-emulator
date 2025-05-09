@@ -3,7 +3,6 @@
 #include <common/constants.h>
 #include <common/protocol/packet_codec.h>
 #include <common/socket.h>
-#include <httplib.h>
 #include <plog/Log.h>
 
 #include <future>

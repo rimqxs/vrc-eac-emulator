@@ -4,7 +4,7 @@
 
 #include "common/api/session_factory.h"
 #include "handler/handlers/client_packet_handler.h"
-#include "httplib.h"
+#include "hv/requests.h"
 
 emulator_client::emulator_client(std::string address, int http_port) : address(address), http_port(http_port), client(std::make_shared<client_packet_handler>(sender)) {
 	instance = this;
@@ -24,12 +24,12 @@ emulator_client* emulator_client::get_instance() {
 }
 
 std::shared_ptr<response> emulator_client::_request(std::shared_ptr<request> const& request) {
-	httplib::Client client(std::format("http://{}:{}", address, http_port));
 	nlohmann::json serialized;
 	request->serialize(serialized);
-	auto res = client.Post("/task", serialized.dump(), "application/json");
-	if (res->status != 200) {
-		PLOGE.printf("[HTTP] The server has returned an error: %d", res->status);
+
+	auto res = requests::post(std::format("http://{}:{}/task", address, http_port).c_str(), serialized.dump());
+	if (res->status_code != 200) {
+		PLOGE.printf("[HTTP] The server has returned an error: %d", res->status_code);
 		return nullptr;
 	}
 	nlohmann::json json = nlohmann::json::parse(res->body);

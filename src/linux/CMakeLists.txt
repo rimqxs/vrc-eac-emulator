@@ -47,3 +47,4 @@ add_library(version SHARED
         api/login_status_handler.cpp
         api/login_status_handler.h
 )
+target_link_libraries(version hv_static)

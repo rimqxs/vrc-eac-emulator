@@ -25,3 +25,4 @@ add_library(EOSSDK-Win64-Shipping SHARED
         sock/sock_client.cpp
         sock/sock_client.h
 )
+target_link_libraries(EOSSDK-Win64-Shipping hv_static)
