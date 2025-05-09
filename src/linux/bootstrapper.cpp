@@ -20,7 +20,6 @@ int bootstrapper::Dummy_WinMain() {
 	websocket_server::launch(tcp_port);
 	http_server::run(http_port);
 
-	PLOGW.printf("EOS Emulator has been initialized successfully! Press Enter key to close this process...");
 	while (true) {
 		Sleep(1000 / 30);  // emulate 30 fps
 

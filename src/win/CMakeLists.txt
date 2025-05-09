@@ -6,6 +6,8 @@ add_library(EOSSDK-Win64-Shipping SHARED
         dllmain.cpp
         emulator_client.cpp
         emulator_client.h
+        emulator_initializer.cpp
+        emulator_initializer.h
         exports.def
 
         eos_impl/eos_general_impl.cpp

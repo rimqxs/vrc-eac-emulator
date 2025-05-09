@@ -29,10 +29,13 @@ void websocket_client::handle_receive(std::string const& msg) {
 
 void websocket_client::run(std::string const& server_address, int port) {
 	std::string wsAddress = std::format("ws://{}:{}", server_address, port);
-	PLOGI.printf("Connection to Server on %s", wsAddress.c_str());
+	PLOGI.printf("Connecting to the server: %s", wsAddress.c_str());
 
-	client.onopen = [&]() {
+	client.onopen = []() {
 		PLOGD.printf("Connection established!");
+	};
+	client.onclose = []() {
+		PLOGD.printf("Connection closed");
 	};
 	client.onmessage = [&](const std::string& msg) {
 		handle_receive(msg);
@@ -40,13 +43,14 @@ void websocket_client::run(std::string const& server_address, int port) {
 
 	reconn_setting_t reconn;
 	reconn_setting_init(&reconn);
-	reconn.min_delay = 1000;
-	reconn.max_delay = 10000;
-	reconn.delay_policy = 2;
-	reconn.max_retry_cnt = 1337;
+	reconn.delay_policy = 0;
+	reconn.min_delay = 3000;
 	client.setReconnect(&reconn);
 
 	client.open(wsAddress.c_str());
+	while (!client.isConnected()) {
+		Sleep(100);
+	}
 }
 
 void websocket_client::set_packet_handler(std::shared_ptr<packet_handler> handler) {

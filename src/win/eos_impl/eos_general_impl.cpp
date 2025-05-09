@@ -1,6 +1,7 @@
 #include <future>
 
 #include "../emulator_client.h"
+#include "../emulator_initializer.h"
 #include "common/api/requests/id2string_request.h"
 #include "common/api/response/id2string_response.h"
 #include "common/eos/eos_api.h"
@@ -14,6 +15,12 @@ dummy_func() {
 
 EOS_DECLARE_FUNC(EOS_EResult)
 DummyEOS_Initialize(EOS_InitializeOptions* options) {
+	auto status = emulator_initializer::init();
+	if (status == EmulatorStauts::REQUIRED_CLOSE) {
+		system("pause");
+		exit(1);
+	}
+
 	auto packet = std::make_shared<initialize_eos_packet>();
 	packet->api_version = options->ApiVersion;
 	packet->product_name = nullable_string(options->ProductName);

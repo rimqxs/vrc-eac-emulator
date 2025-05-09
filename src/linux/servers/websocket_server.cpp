@@ -8,11 +8,13 @@
 #include <future>
 #include <memory>
 #include <mutex>
+#include <thread>
 #include <vector>
 
 #include "../handlers/handler_registry.h"
 #include "hv/WebSocketChannel.h"
 
+std::shared_ptr<hv::WebSocketServer> server;
 std::vector<WebSocketChannelPtr> channels;
 std::mutex send_mutex, receive_mutex;
 std::vector<std::shared_ptr<packet> > send_queued_packets, receive_queued_packets;
@@ -27,21 +29,28 @@ void websocket_server::launch(int port) {
 		locker.notify_one();
 	};
 	service.onmessage = [](const WebSocketChannelPtr& channel, const std::string& msg) {
-		receive_mutex.lock();
+		// receive_mutex.lock();
 
-		read_stream stream(msg.data(), msg.size());
-		auto packet = packet_codec::decode(stream);
-		receive_queued_packets.push_back(packet);
+		// read_stream stream(msg.data(), msg.size());
+		// auto packet = packet_codec::decode(stream);
+		// if (!packet) {
+		// 	PLOGF.printf("Invalid packet retrieved");
+		// 	return;
+		// }
+		// receive_queued_packets.push_back(packet);
 
-		stream.close();
-		receive_mutex.unlock();
+		// stream.close();
+		// receive_mutex.unlock();
 	};
 
 	PLOGI.printf("Starting server on %d", port);
-	hv::WebSocketServer wsServer(&service);
-	wsServer.setPort(port);
-	wsServer.setThreadNum(4);
-	wsServer.run();
+	server = std::make_shared<hv::WebSocketServer>(&service);
+	server->setHost();
+	server->setPort(port);
+	server->setThreadNum(4);
+	std::thread([&]() {
+		server->run();
+	}).detach();
 
 	PLOGI.printf("Waiting for a connection...");
 	std::mutex mutex;
@@ -73,10 +82,10 @@ void websocket_server::performSend() {
 	}
 	send_queued_packets.clear();
 	send_mutex.unlock();
-	receive_mutex.lock();
 }
 
 void websocket_server::performReceive() {
+	receive_mutex.lock();
 	for (const auto& packet : receive_queued_packets) {
 		if (const auto handler = handler_registry::get_handler_by_id(packet->get_id())) {
 			handler(packet);
