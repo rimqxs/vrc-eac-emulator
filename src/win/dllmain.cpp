@@ -3,12 +3,14 @@
 #include <plog/Log.h>
 
 #include "common/constants.h"
+#include "common/exception_handler.hpp"
 #include "common/utils.h"
 #include "emulator_client.h"
 #include "json.hpp"
 
 emulator_client* client;
 void init() {
+	exception_handler::init();
 	utils::create_console();
 	printf("Console Initialized\n");
 

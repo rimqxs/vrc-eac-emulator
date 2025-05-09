@@ -6,7 +6,7 @@
 #include "common/api/response.h"
 #include "common/protocol/packet.h"
 #include "sock/packet_sender.h"
-#include "sock/sock_client.h"
+#include "sock/websocket_client.h"
 
 class emulator_client {
 	static inline emulator_client* instance;
@@ -14,8 +14,8 @@ class emulator_client {
 	std::string address;
 	int http_port;
 
-	sock_client client;
-	packet_sender sender;
+	websocket_client client;
+	std::shared_ptr<packet_sender> sender;
 
 public:
 	emulator_client(std::string address, int http_port);

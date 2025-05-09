@@ -15,13 +15,13 @@ struct notify_message_to_server_callback {
 };
 
 class client_packet_handler : public packet_handler {
-	packet_sender& sender;
+	std::weak_ptr<packet_sender> sender;
 	handler_registry registry;
 
 	static inline std::vector<notify_message_to_server_callback> notify_message_to_server_callbacks;
 
 public:
-	client_packet_handler(packet_sender& sender);
+	client_packet_handler(std::weak_ptr<packet_sender> sender);
 
 	void on_connected() override;
 

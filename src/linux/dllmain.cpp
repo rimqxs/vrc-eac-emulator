@@ -5,16 +5,19 @@
 
 #include "bootstrapper.h"
 #include "common/constants.h"
+#include "common/exception_handler.hpp"
 #include "common/utils.h"
 #include "forwarding/forwarder.h"
 #include "json.hpp"
 
 BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	forwarder::setup();
+
 	bool isRunningOnGameProcess = GetModuleHandleA(GAME_HANDLE_NAME) != nullptr;
 	if (fdwReason != DLL_PROCESS_ATTACH || !isRunningOnGameProcess) {
 		return TRUE;
 	}
+	exception_handler::init();
 
 	utils::create_console();
 	printf("Console Initialized\n");

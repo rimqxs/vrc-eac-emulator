@@ -6,6 +6,7 @@
 #include <functional>
 
 #include "common/protocol/packet_codec.h"
+#include "hv/wsdef.h"
 
 void packet_sender::run_loopback() {
 	while (true) {
@@ -13,9 +14,7 @@ void packet_sender::run_loopback() {
 		for (auto& packet : queued_packet) {
 			write_stream stream = packet_codec::encode(packet);
 			auto buf = stream.as_buffer();
-			if (socket::send(client_socket, buf.data, static_cast<int>(buf.size)) == SOCKET_ERROR) {
-				PLOGD.printf("Send failed");
-			}
+			websocket_client.send(static_cast<char*>(buf.data), buf.size, WS_OPCODE_BINARY);
 			buf.free();
 			PLOGD.printf("Packet sent: name=%s id=%d", packet->get_name().c_str(), packet->get_id());
 		}
@@ -25,8 +24,10 @@ void packet_sender::run_loopback() {
 	}
 }
 
-void packet_sender::start(SOCKET client) {
-	client_socket = client;
+packet_sender::packet_sender(hv::WebSocketClient& websocket_client) : websocket_client(websocket_client) {
+}
+
+void packet_sender::start() {
 	std::thread(std::bind(&packet_sender::run_loopback, this)).detach();
 }
 

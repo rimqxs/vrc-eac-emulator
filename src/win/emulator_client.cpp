@@ -4,19 +4,24 @@
 
 #include "common/api/session_factory.h"
 #include "handler/handlers/client_packet_handler.h"
+#include "handler/packet_handler.h"
 #include "hv/requests.h"
+#include "sock/packet_sender.h"
 
-emulator_client::emulator_client(std::string address, int http_port) : address(address), http_port(http_port), client(std::make_shared<client_packet_handler>(sender)) {
+emulator_client::emulator_client(std::string address, int http_port) : address(address), http_port(http_port), client() {
 	instance = this;
 }
 
 void emulator_client::connect(int tcp_port) {
 	client.run(address, tcp_port);
-	sender.start(client.get_socket());
+	sender = std::make_shared<packet_sender>(client.getWebsocketClient());
+	sender->start();
+	std::shared_ptr<packet_handler> handler = std::make_shared<client_packet_handler>(sender);
+	client.set_packet_handler(handler);
 }
 
 void emulator_client::send_packet(std::shared_ptr<packet> packet) {
-	sender.send_packet(packet);
+	sender->send_packet(packet);
 }
 
 emulator_client* emulator_client::get_instance() {

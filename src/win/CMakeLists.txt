@@ -22,7 +22,7 @@ add_library(EOSSDK-Win64-Shipping SHARED
 
         sock/packet_sender.cpp
         sock/packet_sender.h
-        sock/sock_client.cpp
-        sock/sock_client.h
+        sock/websocket_client.cpp
+        sock/websocket_client.h
 )
-target_link_libraries(EOSSDK-Win64-Shipping hv_static)
+target_link_libraries(EOSSDK-Win64-Shipping hv_static crashlog)
