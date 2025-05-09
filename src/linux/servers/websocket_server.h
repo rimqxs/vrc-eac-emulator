@@ -2,7 +2,11 @@
 
 #include <common/protocol/packet.h>
 
+#include <future>
+
 class websocket_server {
+	static void run_server(std::condition_variable& locker, int port);
+
 public:
 	static void launch(int port);
 

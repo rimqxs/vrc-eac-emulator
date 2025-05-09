@@ -5,7 +5,6 @@
 #include <hv/WebSocketServer.h>
 #include <plog/Log.h>
 
-#include <future>
 #include <memory>
 #include <mutex>
 #include <thread>
@@ -19,37 +18,38 @@ std::vector<WebSocketChannelPtr> channels;
 std::mutex send_mutex, receive_mutex;
 std::vector<std::shared_ptr<packet> > send_queued_packets, receive_queued_packets;
 
-void websocket_server::launch(int port) {
+void websocket_server::run_server(std::condition_variable& locker, int port) {
 	hv::WebSocketService service;
-
-	std::condition_variable locker;
 	service.onopen = [&](const WebSocketChannelPtr& channel, const HttpRequestPtr& req) {
-		channels.push_back(channel);
 		PLOGD.printf("A connection established");
+		channels.push_back(channel);
 		locker.notify_one();
 	};
 	service.onmessage = [](const WebSocketChannelPtr& channel, const std::string& msg) {
-		// receive_mutex.lock();
-
-		// read_stream stream(msg.data(), msg.size());
-		// auto packet = packet_codec::decode(stream);
-		// if (!packet) {
-		// 	PLOGF.printf("Invalid packet retrieved");
-		// 	return;
-		// }
-		// receive_queued_packets.push_back(packet);
-
-		// stream.close();
-		// receive_mutex.unlock();
+		receive_mutex.lock();
+		read_stream stream(msg.data(), msg.size());
+		auto packet = packet_codec::decode(stream);
+		if (packet) {
+			receive_queued_packets.push_back(packet);
+		} else {
+			PLOGF.printf("Invalid packet retrieved");
+		}
+		stream.close();
+		receive_mutex.unlock();
 	};
 
-	PLOGI.printf("Starting server on %d", port);
 	server = std::make_shared<hv::WebSocketServer>(&service);
 	server->setHost();
 	server->setPort(port);
 	server->setThreadNum(4);
+	server->run();
+}
+
+void websocket_server::launch(int port) {
+	PLOGI.printf("Starting server on %d", port);
+	std::condition_variable locker;
 	std::thread([&]() {
-		server->run();
+		run_server(locker, port);
 	}).detach();
 
 	PLOGI.printf("Waiting for a connection...");
@@ -74,11 +74,10 @@ void websocket_server::performSend() {
 	for (auto& packet : send_queued_packets) {
 		write_stream stream = packet_codec::encode(packet);
 		auto buf = stream.as_buffer();
-		for (auto& channel : channels) {
+		for (auto channel : channels) {
 			channel->send(static_cast<char*>(buf.data), buf.size, WS_OPCODE_BINARY);
 		}
 		buf.free();
-		PLOGD.printf("Packet sent: name=%s id=%d", packet->get_name().c_str(), packet->get_id());
 	}
 	send_queued_packets.clear();
 	send_mutex.unlock();
@@ -86,7 +85,7 @@ void websocket_server::performSend() {
 
 void websocket_server::performReceive() {
 	receive_mutex.lock();
-	for (const auto& packet : receive_queued_packets) {
+	for (const auto packet : receive_queued_packets) {
 		if (const auto handler = handler_registry::get_handler_by_id(packet->get_id())) {
 			handler(packet);
 		}
