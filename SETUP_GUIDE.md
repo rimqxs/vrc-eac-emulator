@@ -23,7 +23,7 @@ and change the MAC address to like `00:0C:29:00:00:01`  (Avoid using address sta
 Open your VM file location and open `.vmx` file with a text editor.
 And add the following lines to the end of the file.
 
-> [!NOTICE]
+> [!NOTE]
 > Make sure you closed your VM before editing `.vmx` file.
 
 ```
