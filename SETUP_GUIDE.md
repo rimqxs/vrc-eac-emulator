@@ -1,9 +1,11 @@
 # 1. Introduction
 
 You will need a software can host a virtual machine to run linux side of the this project.
-I highly recommend using [VMWare](https://www.vmware.com/) for this purpose.
+Please use [VMWare](https://www.vmware.com/) for this purpose 
 
-After completing setup any vm, please install any linux distro on it.
+**WE DO NOT SUPPORT FOR ANTI-VM DETECTION BYPASS FOR OTHER THAN VMWARE!**
+
+After completing setup any vm, please install any linux distro you want to use on it.
 We are going to use [Linux Mint](https://linuxmint.com/) for this guide.
 
 # 2. Setting up Virtual-Machine
