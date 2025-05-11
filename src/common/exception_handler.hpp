@@ -17,7 +17,6 @@ class exception_handler {
 		stream << "StackTrace:" << std::endl;
 		stream << crashlog::createStackTraceString(info) << std::endl;
 		stream << std::endl;
-		stream << "More details will be dumped at crashlogs/";
 
 		printf("%s\n", stream.str().c_str());
 		MessageBoxA(nullptr, stream.str().c_str(), "Crashed!", MB_OK | MB_ICONERROR);

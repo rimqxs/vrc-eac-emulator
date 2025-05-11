@@ -4,7 +4,6 @@
 #include <mutex>
 
 #include "common/protocol/packet.h"
-#include "common/socket.h"
 #include "hv/WebSocketClient.h"
 
 class packet_sender {
