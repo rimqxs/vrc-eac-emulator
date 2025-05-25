@@ -5,6 +5,8 @@
 
 Redirect all EAC communications required on Windows to Linux
 
+**Still works at 2025/05/25**
+
 Join our community server: https://discord.gg/yRUfEwBuYv
 
 > [!IMPORTANT]
