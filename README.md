@@ -1,28 +1,14 @@
-Patched on 2024/05/23
-
 # EasyAntiCheat Emulator on VRChat
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/0liteyear/vrc-eac-emulator/blob/master/LICENSE)
 
+Reported and patched on 2024/05/23!
+
 Redirect all EAC communications required on Windows to Linux
-
-> [!IMPORTANT]
-> This project is for educational purposes only. I am not responsible for any damage caused by this project.
-
-## Showcase
-
-https://github.com/user-attachments/assets/860ea1d0-2d04-4218-a55c-5d34a974cd12
-
-Starring this project motivates me to maintain and support this project, so please star ✨
 
 ## How does it work?
 
 Linux EAC runs on Wine, but it has really vulnerable checks. By side-loading DLLs, it hooks the communication with EAC and proxies the contents to Windows.
-
-## How to use
-
-Basic Setup: [Use VMWare (Recommended for most people)](./SETUP_GUIDE.md)  
-Advanced User Setup: [Use WSL](./SETUP_GUIDE_WSL.md)  
 
 ## Libraries used
 
